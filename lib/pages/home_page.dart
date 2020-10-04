@@ -8,25 +8,29 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        children: <Widget>[
-          TopBar(),
-          _taskUncomplete('Позвонить Тому насчет сервера'),
-          _taskUncomplete('Купить продуктов'),
-          _taskUncomplete('Погулять с собакой'),
-          _taskUncomplete('Накормить кота'),
-          Divider(),
-          SizedBox(height: 16),
-          _taskComplete('Позавтракать'),
-          _taskComplete('Сходить на тренировку'),
-        ],
-      ),
+      body: _mainContent(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {}, // ! Добавить task
         elevation: 5,
         tooltip: 'Добавить новую задачу',
       ),
+    );
+  }
+
+  Column _mainContent() {
+    return Column(
+      children: <Widget>[
+        TopBar(),
+        _taskUncomplete('Позвонить Тому насчет сервера'),
+        _taskUncomplete('Купить продуктов'),
+        _taskUncomplete('Погулять с собакой'),
+        _taskUncomplete('Накормить кота'),
+        Divider(),
+        SizedBox(height: 16),
+        _taskComplete('Позавтракать'),
+        _taskComplete('Сходить на тренировку'),
+      ],
     );
   }
 
