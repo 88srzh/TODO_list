@@ -24,6 +24,7 @@ class _TaskPageState extends State<TaskPage> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      itemCount: _taskList.length,
       itemBuilder: (context, index) {
         return _taskList[index].isFinish
             ? _taskComplete(_taskList[index].task)
