@@ -11,6 +11,14 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: <Widget>[
           TopBar(),
+          _taskUncomplete('Позвонить Тому насчет сервера'),
+          _taskUncomplete('Купить продуктов'),
+          _taskUncomplete('Погулять с собакой'),
+          _taskUncomplete('Накормить кота'),
+          Divider(),
+          SizedBox(height: 16),
+          _taskComplete('Позавтракать'),
+          _taskComplete('Сходить на тренировку'),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -21,4 +29,44 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _taskUncomplete(String task) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 20.0, bottom: 24.0),
+      child: Row(
+        children: <Widget>[
+          Icon(
+            Icons.radio_button_unchecked,
+            // ! Было color: Theme.of(context).accentColor,
+            color: Colors.redAccent,
+            size: 20,
+          ),
+          SizedBox(
+            width: 28,
+          ),
+          Text(task),
+        ],
+      ),
+    );
+  }
+}
+
+Widget _taskComplete(String task) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 20.0, bottom: 24.0),
+    child: Row(
+      children: <Widget>[
+        Icon(
+          Icons.radio_button_checked,
+          // ! Было color: Theme.of(context).accentColor,
+          color: Colors.redAccent,
+          size: 20,
+        ),
+        SizedBox(
+          width: 28,
+        ),
+        Text(task),
+      ],
+    ),
+  );
 }
