@@ -7,7 +7,7 @@ class TopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 300,
+      height: 250,
       padding: const EdgeInsets.all(15.0),
       decoration: BoxDecoration(
         image: DecorationImage(

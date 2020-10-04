@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/pages/task_page.dart';
 import '../widgets/top_bar.dart';
+import 'event_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
@@ -23,7 +24,7 @@ class HomePage extends StatelessWidget {
     return Column(
       children: <Widget>[
         TopBar(),
-        Expanded(child: TaskPage()),
+        Expanded(child: EventPage()),
       ],
     );
   }
