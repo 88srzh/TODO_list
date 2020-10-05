@@ -57,6 +57,14 @@ class TopBar extends StatelessWidget {
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: <Widget>[
+                      CircleAvatar(
+                        backgroundColor: Color.fromRGBO(255, 0, 0, 0.5),
+                        child: IconButton(
+                            icon: Icon(Icons.insert_chart),
+                            color: Colors.white,
+                            tooltip: 'Задачи',
+                            onPressed: () {}),
+                      )
                       // ! - Добавить иконки с датами
                     ],
                   ),
