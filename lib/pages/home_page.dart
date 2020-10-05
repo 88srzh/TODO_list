@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list/pages/task_page.dart';
+import 'package:todo_list/pages/add_task_page.dart';
+// ! remove task_page.dart
 import '../widgets/top_bar.dart';
 import 'event_page.dart';
 
@@ -13,7 +14,18 @@ class HomePage extends StatelessWidget {
       body: _mainContent(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {}, // ! Добавить task
+        onPressed: () {
+          showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) {
+                return Dialog(
+                  child: AddTaskPage(),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12))),
+                );
+              });
+        },
         elevation: 5,
         tooltip: 'Добавить новую задачу',
       ),
