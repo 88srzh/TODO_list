@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/widgets/custom_button.dart';
+
 
 class AddTaskPage extends StatefulWidget {
   AddTaskPage({Key key}) : super(key: key);
@@ -30,10 +32,33 @@ class _AddTaskPageState extends State<AddTaskPage> {
             decoration: InputDecoration(
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(12))),
-                labelText: 'Введите имя задачи'),
-          )
+                labelText: 'Введите задачу'),
+          ),
+          SizedBox(
+            height: 24,
+          ),
+          _actionButton(context)
         ],
       ),
     );
+  }
+
+  Widget _actionButton(BuildContext context) {
+    return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            CustomButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              buttonText: "Закрыть",
+            ),
+            CustomButton(
+              onPressed: () {},
+              buttonText: "Сохранить",
+              color: Theme.of(context).accentColor,
+              textColor: Colors.white,
+            )
+          ],);
   }
 }
