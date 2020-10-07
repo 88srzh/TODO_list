@@ -8,13 +8,12 @@ class AddEventPage extends StatefulWidget {
   _AddEventPageState createState() => _AddEventPageState();
 }
 class _AddEventPageState extends State<AddEventPage> {
-
   Future _pickDate() async {
     DateTime datepick = await showDatePicker(
       context: context, 
       initialDate: new DateTime.now(),
       firstDate: new DateTime.now().add(Duration(days: -365)),
-      lastDate: new DateTime.now().add(Duration(days: -365))
+      lastDate: new DateTime.now().add(Duration(days: 365))
     );
   }
 

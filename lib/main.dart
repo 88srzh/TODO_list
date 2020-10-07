@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import './pages/home_page.dart';
 import 'models/data.dart';
@@ -13,6 +14,13 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider<Data>(
       create: (context) => Data(),
       child: MaterialApp(
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate
+        ],
+        supportedLocales: [
+          // const Locale('en'),
+          const Locale('ru')
+        ],
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             primaryColor: Colors.red,
