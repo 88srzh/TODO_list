@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/widgets/custom_button.dart';
+import 'package:todo_list/widgets/custom_textfield.dart';
 
 
 class AddTaskPage extends StatefulWidget {
@@ -28,12 +29,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
           SizedBox(
             height: 24,
           ),
-          TextField(
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(12))),
-                labelText: 'Введите задачу'),
-          ),
+          CustomTextField(labelText: 'Введите задачу'),
           SizedBox(
             height: 24,
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/pages/add_event_page.dart';
 
 class TopBar extends StatelessWidget {
   TopBar({Key key}) : super(key: key);
@@ -74,7 +75,19 @@ class TopBar extends StatelessWidget {
                             icon: Icon(Icons.insert_chart),
                             color: Colors.white,
                             tooltip: 'События',
-                            onPressed: () {}),
+                            onPressed: () {
+                              showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) {
+                return Dialog(
+                  child: AddEventPage(),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12))),
+                );
+              });
+
+                            }),
                       )
                       // ! - Добавить иконки с датами
                     ],

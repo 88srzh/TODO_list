@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/widgets/custom_button.dart';
+import 'package:todo_list/widgets/custom_textfield.dart';
 
 class AddEventPage extends StatefulWidget {
 
@@ -6,6 +8,16 @@ class AddEventPage extends StatefulWidget {
   _AddEventPageState createState() => _AddEventPageState();
 }
 class _AddEventPageState extends State<AddEventPage> {
+
+  Future _pickDate() async {
+    DateTime datepick = await showDatePicker(
+      context: context, 
+      initialDate: new DateTime.now(),
+      firstDate: new DateTime.now().add(Duration(days: -365)),
+      lastDate: new DateTime.now().add(Duration(days: -365))
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,7 +27,7 @@ class _AddEventPageState extends State<AddEventPage> {
         children: <Widget>[
           Center(
               child: Text(
-            'Добавить новую задачу',
+            'Добавить новое событие',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
@@ -24,12 +36,33 @@ class _AddEventPageState extends State<AddEventPage> {
           SizedBox(
             height: 24,
           ),
-          TextField(
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(12))),
-                labelText: 'Введите задачу'),
+          CustomTextField(labelText: 'Добавить новое событие'),
+          SizedBox(
+            height: 12,
           ),
+          CustomTextField(labelText: 'Введите описание'),
+          SizedBox(
+            height: 12,
+          ),
+          FlatButton(
+            padding: EdgeInsets.zero,
+            onPressed: _pickDate,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 12.0),
+              child: Row(
+                children: [
+                  Icon(Icons.date_range,
+                  color: Theme.of(context).accentColor,
+                  size: 30,),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  Text('Выберите дату',
+                  style: TextStyle(fontSize: 14),
+                  )
+                ],
+              ),
+            )),
           SizedBox(
             height: 24,
           ),
@@ -37,6 +70,7 @@ class _AddEventPageState extends State<AddEventPage> {
         ],
       ),
     );
+  }
 
   Widget _actionButton(BuildContext context) {
     return Row(
