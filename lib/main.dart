@@ -15,11 +15,12 @@ class MyApp extends StatelessWidget {
       create: (context) => Data(),
       child: MaterialApp(
         localizationsDelegates: [
-          GlobalMaterialLocalizations.delegate
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate
         ],
         supportedLocales: [
           // const Locale('en'),
-          const Locale('ru')
+          const Locale('ru', 'RU')
         ],
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

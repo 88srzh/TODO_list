@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/widgets/custom_button.dart';
 import 'package:todo_list/widgets/custom_textfield.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 
 class AddEventPage extends StatefulWidget {
 
@@ -9,11 +11,17 @@ class AddEventPage extends StatefulWidget {
 }
 class _AddEventPageState extends State<AddEventPage> {
   Future _pickDate() async {
-    DateTime datepick = await showDatePicker(
-      context: context, 
-      initialDate: new DateTime.now(),
-      firstDate: new DateTime.now().add(Duration(days: -365)),
-      lastDate: new DateTime.now().add(Duration(days: 365))
+    // DateTime datepick = await showDatePicker(
+    //   context: context, 
+    //   initialDate: new DateTime.now(),
+    //   firstDate: new DateTime.now().add(Duration(days: -365)),
+    //   lastDate: new DateTime.now().add(Duration(days: 365)),
+    DateTime datepick = await showRoundedDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(DateTime.now().year - 1),
+      lastDate: DateTime(DateTime.now().year + 1),
+      borderRadius: 16,
     );
   }
 
