@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         ],
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          primarySwatch: Colors.red,
             primaryColor: Colors.red,
             accentColor: Colors.redAccent,
             fontFamily: "CormorantInfant"),

@@ -37,8 +37,21 @@ class _AddEventPageState extends State<AddEventPage> {
   Future _pickTime() async {
     TimeOfDay timepick = await showTimePicker(
       context: context,
-      initialTime: new TimeOfDay.now()
-    );
+      initialTime: new TimeOfDay.now(),
+      builder: (
+        BuildContext context, Widget child) {
+          return new Theme(data: ThemeData(
+            primaryColor: Color.fromRGBO(255, 0, 0, 0.5),
+            accentColor: Colors.redAccent,
+            disabledColor: Colors.blue,
+            accentTextTheme: TextTheme(
+              bodyText2: TextStyle(color: Colors.black)),
+            ),
+            child: child,
+            );
+        } // ! - builder нужен ли?
+      );
+    
     if (timepick != null) {
       setState(() {
         _selectedTime = timepick.toString();
