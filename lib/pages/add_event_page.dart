@@ -10,6 +10,10 @@ class AddEventPage extends StatefulWidget {
   _AddEventPageState createState() => _AddEventPageState();
 }
 class _AddEventPageState extends State<AddEventPage> {
+
+  String _selectedDate = 'Выберите дату';
+  String _selectedTime = 'Выберите время';
+
   Future _pickDate() async {
     DateTime datepick = await showRoundedDatePicker(
       context: context,
@@ -23,12 +27,26 @@ class _AddEventPageState extends State<AddEventPage> {
       disabledColor: Colors.blue,
       accentTextTheme: TextTheme(
       bodyText2 : TextStyle(color: Colors.black),
-      
-         ),
+         )));
       // ! - Исправить слова внизу на черный цвет
-    ),
-    );
+      if (datepick != null) setState(() {
+        _selectedDate = datepick.toString();
+      });
   }
+
+  Future _pickTime() async {
+    TimeOfDay timepick = await showTimePicker(
+      context: context,
+      initialTime: new TimeOfDay.now()
+    );
+    if (timepick != null) {
+      setState(() {
+        _selectedTime = timepick.toString();
+      });
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,25 +74,8 @@ class _AddEventPageState extends State<AddEventPage> {
           SizedBox(
             height: 12,
           ),
-          FlatButton(
-            padding: EdgeInsets.zero,
-            onPressed: _pickDate,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 12.0),
-              child: Row(
-                children: [
-                  Icon(Icons.date_range,
-                  color: Theme.of(context).accentColor,
-                  size: 30,),
-                  SizedBox(
-                    width: 12,
-                  ),
-                  Text('Выберите дату',
-                  style: TextStyle(fontSize: 14),
-                  )
-                ],
-              ),
-            )),
+          _dateTimePicker(Icons.date_range, _pickDate, _selectedDate),
+          _dateTimePicker(Icons.access_time, _pickTime, _selectedTime),
           SizedBox(
             height: 24,
           ),
@@ -82,6 +83,29 @@ class _AddEventPageState extends State<AddEventPage> {
         ],
       ),
     );
+  }
+
+  Widget _dateTimePicker(IconData icon, VoidCallback onPressed, String value) {
+    return FlatButton(
+          padding: EdgeInsets.zero,
+          onPressed: onPressed,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 12.0),
+            child: Row(
+              children: [
+                Icon(icon,
+                color: Theme.of(context).accentColor,
+                size: 30,),
+                SizedBox(
+                  width: 12,
+                ),
+                Text(
+                  value,
+                style: TextStyle(fontSize: 14),
+                )
+              ],
+            ),
+          ));
   }
 
   Widget _actionButton(BuildContext context) {

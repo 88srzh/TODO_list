@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/pages/add_event_page.dart';
+import 'package:todo_list/pages/add_task_page.dart';
 
 class TopBar extends StatelessWidget {
   TopBar({Key key}) : super(key: key);
@@ -64,7 +65,18 @@ class TopBar extends StatelessWidget {
                             icon: Icon(Icons.insert_chart),
                             color: Colors.white,
                             tooltip: 'Задачи',
-                            onPressed: () {}),
+                            onPressed: () {
+                              showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) {
+                return Dialog(
+                  child: AddTaskPage(),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12))),
+                );
+                            });
+                            }),
                       ),
                       SizedBox(
                         width: 20,
