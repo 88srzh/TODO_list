@@ -62,7 +62,7 @@ class TopBar extends StatelessWidget {
                       CircleAvatar(
                         backgroundColor: Color.fromRGBO(255, 0, 0, 0.5),
                         child: IconButton(
-                            icon: Icon(Icons.insert_chart),
+                            icon: Icon(Icons.add),
                             color: Colors.white,
                             tooltip: 'Задачи',
                             onPressed: () {

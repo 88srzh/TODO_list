@@ -22,13 +22,13 @@ class _AddEventPageState extends State<AddEventPage> {
       lastDate: DateTime(DateTime.now().year + 1),
       borderRadius: 16,
       theme: ThemeData(
+      primarySwatch: Colors.red,
       primaryColor: Color.fromRGBO(255, 0, 0, 0.5),
       accentColor: Colors.redAccent,
       disabledColor: Colors.blue,
       accentTextTheme: TextTheme(
       bodyText2 : TextStyle(color: Colors.black),
          )));
-      // ! - Исправить слова внизу на черный цвет
       if (datepick != null) setState(() {
         _selectedDate = datepick.toString();
       });
@@ -37,20 +37,7 @@ class _AddEventPageState extends State<AddEventPage> {
   Future _pickTime() async {
     TimeOfDay timepick = await showTimePicker(
       context: context,
-      initialTime: new TimeOfDay.now(),
-      builder: (
-        BuildContext context, Widget child) {
-          return new Theme(data: ThemeData(
-            primaryColor: Color.fromRGBO(255, 0, 0, 0.5),
-            accentColor: Colors.redAccent,
-            disabledColor: Colors.blue,
-            accentTextTheme: TextTheme(
-              bodyText2: TextStyle(color: Colors.black)),
-            ),
-            child: child,
-            );
-        } // ! - builder нужен ли?
-      );
+      initialTime: new TimeOfDay.now());
     
     if (timepick != null) {
       setState(() {
