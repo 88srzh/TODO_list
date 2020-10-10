@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/pages/add_event_page.dart';
 import 'package:todo_list/pages/add_task_page.dart';
+import 'package:todo_list/pages/task_page.dart';
 // ! remove task_page.dart
 import '../widgets/top_bar.dart';
 import 'event_page.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+class HomePage extends StatefulWidget {
+
+@override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  PageController _pageController = PageController();
+
+  double currentPage = 0;
+
 
   @override
   Widget build(BuildContext context) {
+    _pageController.addListener(() {
+      setState(() {
+        currentPage = _pageController.page;
+      });
+     });
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: _mainContent(),
@@ -20,7 +37,7 @@ class HomePage extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 return Dialog(
-                  child: AddTaskPage(),
+                  child: currentPage == 0 ? AddTaskPage() : AddEventPage(),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12))),
                 );
@@ -36,7 +53,13 @@ class HomePage extends StatelessWidget {
     return Column(
       children: <Widget>[
         TopBar(),
-        Expanded(child: EventPage()),
+        Expanded(child: PageView(
+          controller: _pageController,
+          children: <Widget>[
+            EventPage(),
+            TaskPage(),
+          ],
+        )),
       ],
     );
   }

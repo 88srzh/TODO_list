@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:todo_list/widgets/custom_button.dart';
+import 'package:todo_list/widgets/custom_date_time_picker.dart';
+import 'package:todo_list/widgets/custom_modal_action_button.dart';
 import 'package:todo_list/widgets/custom_textfield.dart';
 
 
@@ -11,6 +14,41 @@ class AddTaskPage extends StatefulWidget {
 }
 
 class _AddTaskPageState extends State<AddTaskPage> {
+    String _selectedDate = 'Выберите дату';
+  String _selectedTime = 'Выберите время';
+
+  Future _pickDate() async {
+    DateTime datepick = await showRoundedDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(DateTime.now().year - 1),
+      lastDate: DateTime(DateTime.now().year + 1),
+      borderRadius: 16,
+      theme: ThemeData(
+      primarySwatch: Colors.red,
+      primaryColor: Color.fromRGBO(255, 0, 0, 0.5),
+      accentColor: Colors.redAccent,
+      disabledColor: Colors.blue,
+      accentTextTheme: TextTheme(
+      bodyText2 : TextStyle(color: Colors.black),
+         )));
+      if (datepick != null) setState(() {
+        _selectedDate = datepick.toString();
+      });
+  }
+
+    // ! - Ждем когда пофиксят
+  Future _pickTime() async {
+    TimeOfDay timepick = await showTimePicker(
+      context: context,
+      initialTime: new TimeOfDay.now());
+    
+    if (timepick != null) {
+      setState(() {
+        _selectedTime = timepick.toString();
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -31,30 +69,29 @@ class _AddTaskPageState extends State<AddTaskPage> {
           ),
           CustomTextField(labelText: 'Введите задачу'),
           SizedBox(
+            height: 12,
+          ),
+          CustomDateTimePicker(
+            onPressed: _pickDate,
+            icon: Icons.date_range, 
+            value: _selectedDate,
+            ),
+          CustomDateTimePicker(
+          onPressed: _pickTime,
+          icon: Icons.access_time, 
+          value: _selectedTime,
+            ),
+          SizedBox(
             height: 24,
           ),
-          _actionButton(context)
+          CustomModalActionButton(
+            onClose: () {
+                Navigator.of(context).pop();
+              }, 
+            onSave: () {}
+            ),
         ],
       ),
     );
-  }
-
-  Widget _actionButton(BuildContext context) {
-    return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            CustomButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              buttonText: "Закрыть",
-            ),
-            CustomButton(
-              onPressed: () {},
-              buttonText: "Сохранить",
-              color: Theme.of(context).accentColor,
-              textColor: Colors.white,
-            )
-          ],);
   }
 }

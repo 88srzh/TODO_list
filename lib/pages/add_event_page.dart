@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/widgets/custom_button.dart';
+import 'package:todo_list/widgets/custom_date_time_picker.dart';
+import 'package:todo_list/widgets/custom_modal_action_button.dart';
 import 'package:todo_list/widgets/custom_textfield.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
@@ -34,6 +36,7 @@ class _AddEventPageState extends State<AddEventPage> {
       });
   }
 
+    // ! - Ждем когда пофиксят
   Future _pickTime() async {
     TimeOfDay timepick = await showTimePicker(
       context: context,
@@ -74,56 +77,27 @@ class _AddEventPageState extends State<AddEventPage> {
           SizedBox(
             height: 12,
           ),
-          _dateTimePicker(Icons.date_range, _pickDate, _selectedDate),
-          _dateTimePicker(Icons.access_time, _pickTime, _selectedTime),
+          CustomDateTimePicker(
+            onPressed: _pickDate,
+            icon: Icons.date_range, 
+            value: _selectedDate,
+            ),
+          CustomDateTimePicker(
+          onPressed: _pickTime,
+          icon: Icons.access_time, 
+          value: _selectedTime,
+            ),
           SizedBox(
             height: 24,
           ),
-          _actionButton(context)
+          CustomModalActionButton(
+            onClose: () {
+                Navigator.of(context).pop();
+              }, 
+            onSave: () {}
+            ),
         ],
       ),
     );
-  }
-
-  Widget _dateTimePicker(IconData icon, VoidCallback onPressed, String value) {
-    return FlatButton(
-          padding: EdgeInsets.zero,
-          onPressed: onPressed,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 12.0),
-            child: Row(
-              children: [
-                Icon(icon,
-                color: Theme.of(context).accentColor,
-                size: 30,),
-                SizedBox(
-                  width: 12,
-                ),
-                Text(
-                  value,
-                style: TextStyle(fontSize: 14),
-                )
-              ],
-            ),
-          ));
-  }
-
-  Widget _actionButton(BuildContext context) {
-    return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            CustomButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              buttonText: "Закрыть",
-            ),
-            CustomButton(
-              onPressed: () {},
-              buttonText: "Сохранить",
-              color: Theme.of(context).accentColor,
-              textColor: Colors.white,
-            )
-          ],);
   }
 }
