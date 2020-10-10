@@ -3,8 +3,7 @@ import 'package:todo_list/pages/add_event_page.dart';
 import 'package:todo_list/pages/add_task_page.dart';
 import 'package:todo_list/pages/event_page.dart';
 import 'package:todo_list/pages/task_page.dart';
-// ! remove task_page.dart
-import 'package:todo_list/widgets/top_bar.dart';
+import 'package:todo_list/widgets/custom_button.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -51,18 +50,112 @@ class _HomePageState extends State<HomePage> {
 
   Widget _mainContent() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        TopBar(),
-        Expanded(child: PageView(
-          controller: _pageController,
-          children: <Widget>[
-            EventPage(),
-            TaskPage(),
+        Container(
+      width: double.infinity,
+      height: 250,
+      padding: const EdgeInsets.all(15.0),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: Image.asset('assets/images/bg_pink.png').image,
+          fit: BoxFit.fitWidth, // ! Был contain
+        ),
+        gradient: LinearGradient(
+          colors: [
+            Colors.red,
+            Colors.white,
           ],
-        )),
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                CircleAvatar(
+                  backgroundColor: Color.fromRGBO(255, 0, 0, 0.3),
+                  child: IconButton(
+                      icon: Icon(Icons.dehaze),
+                      color: Colors.white,
+                      onPressed: () {}),
+                ),
+                CircleAvatar(
+                  backgroundColor: Color.fromRGBO(255, 0, 0, 0.3),
+                  child: IconButton(
+                      icon: Icon(Icons.calendar_today),
+                      color: Colors.white,
+                      onPressed: () {}),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                  Expanded(
+            child: _button(context),
+          ),
+          ],
+        ),
+        ],
+            ),
+        ),
+      ),
+       Expanded(
+              child: PageView(
+                controller: _pageController,
+                children: <Widget>[
+                   TaskPage(),
+                   EventPage(),
+                ],
+              ),
+        ),
+      ],
+    );
+  }
+
+    Widget _button(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: CustomButton(
+            onPressed: () {
+              _pageController.previousPage(
+                duration: Duration(milliseconds: 500),
+                curve: Curves.bounceInOut,
+              );
+            }, 
+            buttonText: "Задачи",
+            color: currentPage < 0.5 ? Theme.of(context).accentColor : Colors.white,
+            textColor: currentPage < 0.5 ? Colors.white : Theme.of(context).accentColor,
+            borderColor: currentPage < 0.5 ? Colors.transparent : Theme.of(context).accentColor,
+            ),
+        ),
+        SizedBox(
+          width: 32,
+        ),
+        Expanded(
+          child: CustomButton(
+            onPressed: () {
+              _pageController.nextPage(
+                duration: Duration(milliseconds: 500),
+                curve: Curves.bounceInOut,
+              );
+            }, 
+            buttonText: "События",
+            color: currentPage > 0.5 ? Theme.of(context).accentColor : Colors.white,
+            textColor: currentPage > 0.5 ? Colors.white : Theme.of(context).accentColor,
+            borderColor: currentPage > 0.5 ? Colors.transparent : Theme.of(context).accentColor,
+            ),
+        ),
       ],
     );
   }
 }
+
 
 
