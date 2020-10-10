@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/pages/add_event_page.dart';
 import 'package:todo_list/pages/add_task_page.dart';
+import 'package:todo_list/pages/event_page.dart';
 import 'package:todo_list/pages/task_page.dart';
 // ! remove task_page.dart
-import '../widgets/top_bar.dart';
-import 'event_page.dart';
+import 'package:todo_list/widgets/top_bar.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -64,3 +64,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+

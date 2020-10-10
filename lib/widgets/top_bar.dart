@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/pages/add_event_page.dart';
 import 'package:todo_list/pages/add_task_page.dart';
+import 'package:todo_list/pages/home_page.dart';
 
 class TopBar extends StatelessWidget {
-  TopBar({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +62,10 @@ class TopBar extends StatelessWidget {
                       CircleAvatar(
                         backgroundColor: Color.fromRGBO(255, 0, 0, 0.5),
                         child: IconButton(
-                            icon: Icon(Icons.add),
+                          
+                            icon: Icon(Icons.check_circle),
                             color: Colors.white,
+                            
                             tooltip: 'Задачи',
                             onPressed: () {
                               showDialog(
