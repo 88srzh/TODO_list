@@ -26,94 +26,79 @@ class _HomePageState extends State<HomePage> {
      });
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: _mainContent(),
+     body: Stack(
+        children: <Widget>[
+          Container(
+            height: 35,
+            color: Theme.of(context).accentColor,
+          ),
+          Positioned(
+            right: 0,
+            child: Text(
+              "12",
+              style: TextStyle(fontSize: 200, color: Color(0x10000000)),
+            ),
+          ),
+          _mainContent(context),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
         onPressed: () {
           showDialog(
               barrierDismissible: false,
               context: context,
               builder: (BuildContext context) {
                 return Dialog(
-                  child: currentPage == 0 ? AddTaskPage() : AddEventPage(),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12))),
-                );
+                    child: currentPage == 0 ? AddTaskPage() : AddEventPage(),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12))));
               });
         },
-        elevation: 5,
-        tooltip: 'Добавить новую задачу',
+        child: Icon(Icons.add),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.more_vert),
+              onPressed: () {},
+            )
+          ],
+        ),
+      ),
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
-  Widget _mainContent() {
+  Widget _mainContent(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Container(
-      width: double.infinity,
-      height: 250,
-      padding: const EdgeInsets.all(15.0),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: Image.asset('assets/images/bg_pink.png').image,
-          fit: BoxFit.fitWidth, // ! Был contain
-        ),
-        gradient: LinearGradient(
-          colors: [
-            Colors.red,
-            Colors.white,
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-      ),
-      child: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                CircleAvatar(
-                  backgroundColor: Color.fromRGBO(255, 0, 0, 0.3),
-                  child: IconButton(
-                      icon: Icon(Icons.dehaze),
-                      color: Colors.white,
-                      onPressed: () {}),
-                ),
-                CircleAvatar(
-                  backgroundColor: Color.fromRGBO(255, 0, 0, 0.3),
-                  child: IconButton(
-                      icon: Icon(Icons.calendar_today),
-                      color: Colors.white,
-                      onPressed: () {}),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                  Expanded(
-            child: _button(context),
+        SizedBox(height: 60),
+        Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Text(
+            "Понедельник",
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           ),
-          ],
         ),
-        ],
+        Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: _button(context),
+        ),
+        Expanded(
+            child: PageView(
+          controller: _pageController,
+          children: <Widget>[TaskPage(), EventPage()],
             ),
-        ),
-      ),
-       Expanded(
-              child: PageView(
-                controller: _pageController,
-                children: <Widget>[
-                   TaskPage(),
-                   EventPage(),
-                ],
-              ),
-        ),
+            ),
       ],
     );
   }
