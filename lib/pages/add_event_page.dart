@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list/widgets/custom_button.dart';
 import 'package:todo_list/widgets/custom_date_time_picker.dart';
 import 'package:todo_list/widgets/custom_modal_action_button.dart';
 import 'package:todo_list/widgets/custom_textfield.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 
 class AddEventPage extends StatefulWidget {
@@ -36,21 +34,6 @@ class _AddEventPageState extends State<AddEventPage> {
       });
   }
 
-    // ! - Ждем когда пофиксят
-  Future _pickTime() async {
-    TimeOfDay timepick = await showTimePicker(
-      context: context,
-      initialTime: new TimeOfDay.now());
-    
-    if (timepick != null) {
-      setState(() {
-        _selectedTime = timepick.toString();
-      });
-    }
-  }
-
-
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -81,11 +64,6 @@ class _AddEventPageState extends State<AddEventPage> {
             onPressed: _pickDate,
             icon: Icons.date_range, 
             value: _selectedDate,
-            ),
-          CustomDateTimePicker(
-          onPressed: _pickTime,
-          icon: Icons.access_time, 
-          value: _selectedTime,
             ),
           SizedBox(
             height: 24,

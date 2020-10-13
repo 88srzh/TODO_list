@@ -6,7 +6,11 @@ class TaskPage extends StatefulWidget {
   _TaskPageState createState() => _TaskPageState();
 }
 
-
+class Task {
+  final String task;
+  final bool isFinish;
+  const Task(this.task, this.isFinish);
+}
 
 final List<Task> _taskList = [
   new Task('Позвонить Тому насчет сервера', false),

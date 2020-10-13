@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import './pages/home_page.dart';
-import 'models/data.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,9 +10,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<Data>(
-      create: (context) => Data(),
-      child: MaterialApp(
+    return MaterialApp(
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate
@@ -30,7 +27,6 @@ class MyApp extends StatelessWidget {
             fontFamily: "CormorantInfant"),
         title: 'Task App',
         home: HomePage(),
-      ),
-    );
+      );
   }
 }
