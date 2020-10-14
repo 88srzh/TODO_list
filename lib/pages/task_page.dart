@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/model/database.dart';
+import 'package:todo_list/model/todo.dart';
 import 'package:todo_list/widgets/custom_button.dart';
 
 class TaskPage extends StatefulWidget {
@@ -24,14 +26,19 @@ final List<Task> _taskList = [
 class _TaskPageState extends State<TaskPage> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.all(0),
-      itemCount: _taskList.length,
-      itemBuilder: (context, index) {
-        return _taskList[index].isFinish
-            ? _taskComplete(_taskList[index].task)
-            : _taskUncomplete(_taskList[index]);
-      },
+    return StreamBuilder(
+      stream: Database().getTodoByType(TodoType.TYPE_TASK.index),
+      builder: (context, snapshot) {
+return ListView.builder(
+        padding: const EdgeInsets.all(0),
+        itemCount: snapshot.data.length,
+        itemBuilder: (context, index) {
+          return snapshot.data[index].isFinish
+              ? _taskComplete(snapshot.data[index].task)
+              : _taskUncomplete(snapshot.data[index]);
+        },
+      );
+      }, 
     );
   }
 
