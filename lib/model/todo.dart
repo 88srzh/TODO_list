@@ -11,3 +11,4 @@ class Todo extends Table {
 }
 
 enum ToDoType {TYPE_TASK, TYPE_EVENT}
+

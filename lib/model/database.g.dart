@@ -6,7 +6,7 @@ part of 'database.dart';
 // MoorGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
+// ignore_for_file: unnecessary_brace_in_string_interps
 class TodoData extends DataClass implements Insertable<TodoData> {
   final int id;
   final DateTime date;
@@ -45,34 +45,34 @@ class TodoData extends DataClass implements Insertable<TodoData> {
           intType.mapFromDatabaseResponse(data['${effectivePrefix}todo_type']),
     );
   }
+  factory TodoData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer = const ValueSerializer.defaults()}) {
+    return TodoData(
+      id: serializer.fromJson<int>(json['id']),
+      date: serializer.fromJson<DateTime>(json['date']),
+      time: serializer.fromJson<DateTime>(json['time']),
+      task: serializer.fromJson<String>(json['task']),
+      description: serializer.fromJson<String>(json['description']),
+      isFinish: serializer.fromJson<bool>(json['isFinish']),
+      todoType: serializer.fromJson<int>(json['todoType']),
+    );
+  }
   @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (!nullToAbsent || id != null) {
-      map['id'] = Variable<int>(id);
-    }
-    if (!nullToAbsent || date != null) {
-      map['date'] = Variable<DateTime>(date);
-    }
-    if (!nullToAbsent || time != null) {
-      map['time'] = Variable<DateTime>(time);
-    }
-    if (!nullToAbsent || task != null) {
-      map['task'] = Variable<String>(task);
-    }
-    if (!nullToAbsent || description != null) {
-      map['description'] = Variable<String>(description);
-    }
-    if (!nullToAbsent || isFinish != null) {
-      map['is_finish'] = Variable<bool>(isFinish);
-    }
-    if (!nullToAbsent || todoType != null) {
-      map['todo_type'] = Variable<int>(todoType);
-    }
-    return map;
+  Map<String, dynamic> toJson(
+      {ValueSerializer serializer = const ValueSerializer.defaults()}) {
+    return {
+      'id': serializer.toJson<int>(id),
+      'date': serializer.toJson<DateTime>(date),
+      'time': serializer.toJson<DateTime>(time),
+      'task': serializer.toJson<String>(task),
+      'description': serializer.toJson<String>(description),
+      'isFinish': serializer.toJson<bool>(isFinish),
+      'todoType': serializer.toJson<int>(todoType),
+    };
   }
 
-  TodoCompanion toCompanion(bool nullToAbsent) {
+  @override
+  T createCompanion<T extends UpdateCompanion<TodoData>>(bool nullToAbsent) {
     return TodoCompanion(
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       date: date == null && nullToAbsent ? const Value.absent() : Value(date),
@@ -87,34 +87,7 @@ class TodoData extends DataClass implements Insertable<TodoData> {
       todoType: todoType == null && nullToAbsent
           ? const Value.absent()
           : Value(todoType),
-    );
-  }
-
-  factory TodoData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
-    return TodoData(
-      id: serializer.fromJson<int>(json['id']),
-      date: serializer.fromJson<DateTime>(json['date']),
-      time: serializer.fromJson<DateTime>(json['time']),
-      task: serializer.fromJson<String>(json['task']),
-      description: serializer.fromJson<String>(json['description']),
-      isFinish: serializer.fromJson<bool>(json['isFinish']),
-      todoType: serializer.fromJson<int>(json['todoType']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'date': serializer.toJson<DateTime>(date),
-      'time': serializer.toJson<DateTime>(time),
-      'task': serializer.toJson<String>(task),
-      'description': serializer.toJson<String>(description),
-      'isFinish': serializer.toJson<bool>(isFinish),
-      'todoType': serializer.toJson<int>(todoType),
-    };
+    ) as T;
   }
 
   TodoData copyWith(
@@ -160,16 +133,16 @@ class TodoData extends DataClass implements Insertable<TodoData> {
                   $mrjc(description.hashCode,
                       $mrjc(isFinish.hashCode, todoType.hashCode)))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(other) =>
       identical(this, other) ||
       (other is TodoData &&
-          other.id == this.id &&
-          other.date == this.date &&
-          other.time == this.time &&
-          other.task == this.task &&
-          other.description == this.description &&
-          other.isFinish == this.isFinish &&
-          other.todoType == this.todoType);
+          other.id == id &&
+          other.date == date &&
+          other.time == time &&
+          other.task == task &&
+          other.description == description &&
+          other.isFinish == isFinish &&
+          other.todoType == todoType);
 }
 
 class TodoCompanion extends UpdateCompanion<TodoData> {
@@ -189,40 +162,6 @@ class TodoCompanion extends UpdateCompanion<TodoData> {
     this.isFinish = const Value.absent(),
     this.todoType = const Value.absent(),
   });
-  TodoCompanion.insert({
-    this.id = const Value.absent(),
-    @required DateTime date,
-    @required DateTime time,
-    @required String task,
-    @required String description,
-    @required bool isFinish,
-    @required int todoType,
-  })  : date = Value(date),
-        time = Value(time),
-        task = Value(task),
-        description = Value(description),
-        isFinish = Value(isFinish),
-        todoType = Value(todoType);
-  static Insertable<TodoData> custom({
-    Expression<int> id,
-    Expression<DateTime> date,
-    Expression<DateTime> time,
-    Expression<String> task,
-    Expression<String> description,
-    Expression<bool> isFinish,
-    Expression<int> todoType,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (date != null) 'date': date,
-      if (time != null) 'time': time,
-      if (task != null) 'task': task,
-      if (description != null) 'description': description,
-      if (isFinish != null) 'is_finish': isFinish,
-      if (todoType != null) 'todo_type': todoType,
-    });
-  }
-
   TodoCompanion copyWith(
       {Value<int> id,
       Value<DateTime> date,
@@ -240,47 +179,6 @@ class TodoCompanion extends UpdateCompanion<TodoData> {
       isFinish: isFinish ?? this.isFinish,
       todoType: todoType ?? this.todoType,
     );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (date.present) {
-      map['date'] = Variable<DateTime>(date.value);
-    }
-    if (time.present) {
-      map['time'] = Variable<DateTime>(time.value);
-    }
-    if (task.present) {
-      map['task'] = Variable<String>(task.value);
-    }
-    if (description.present) {
-      map['description'] = Variable<String>(description.value);
-    }
-    if (isFinish.present) {
-      map['is_finish'] = Variable<bool>(isFinish.value);
-    }
-    if (todoType.present) {
-      map['todo_type'] = Variable<int>(todoType.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('TodoCompanion(')
-          ..write('id: $id, ')
-          ..write('date: $date, ')
-          ..write('time: $time, ')
-          ..write('task: $task, ')
-          ..write('description: $description, ')
-          ..write('isFinish: $isFinish, ')
-          ..write('todoType: $todoType')
-          ..write(')'))
-        .toString();
   }
 }
 
@@ -381,49 +279,48 @@ class $TodoTable extends Todo with TableInfo<$TodoTable, TodoData> {
   @override
   final String actualTableName = 'todo';
   @override
-  VerificationContext validateIntegrity(Insertable<TodoData> instance,
+  VerificationContext validateIntegrity(TodoCompanion d,
       {bool isInserting = false}) {
     final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    if (d.id.present) {
+      context.handle(_idMeta, id.isAcceptableValue(d.id.value, _idMeta));
+    } else if (id.isRequired && isInserting) {
+      context.missing(_idMeta);
     }
-    if (data.containsKey('date')) {
+    if (d.date.present) {
       context.handle(
-          _dateMeta, date.isAcceptableOrUnknown(data['date'], _dateMeta));
-    } else if (isInserting) {
+          _dateMeta, date.isAcceptableValue(d.date.value, _dateMeta));
+    } else if (date.isRequired && isInserting) {
       context.missing(_dateMeta);
     }
-    if (data.containsKey('time')) {
+    if (d.time.present) {
       context.handle(
-          _timeMeta, time.isAcceptableOrUnknown(data['time'], _timeMeta));
-    } else if (isInserting) {
+          _timeMeta, time.isAcceptableValue(d.time.value, _timeMeta));
+    } else if (time.isRequired && isInserting) {
       context.missing(_timeMeta);
     }
-    if (data.containsKey('task')) {
+    if (d.task.present) {
       context.handle(
-          _taskMeta, task.isAcceptableOrUnknown(data['task'], _taskMeta));
-    } else if (isInserting) {
+          _taskMeta, task.isAcceptableValue(d.task.value, _taskMeta));
+    } else if (task.isRequired && isInserting) {
       context.missing(_taskMeta);
     }
-    if (data.containsKey('description')) {
-      context.handle(
-          _descriptionMeta,
-          description.isAcceptableOrUnknown(
-              data['description'], _descriptionMeta));
-    } else if (isInserting) {
+    if (d.description.present) {
+      context.handle(_descriptionMeta,
+          description.isAcceptableValue(d.description.value, _descriptionMeta));
+    } else if (description.isRequired && isInserting) {
       context.missing(_descriptionMeta);
     }
-    if (data.containsKey('is_finish')) {
+    if (d.isFinish.present) {
       context.handle(_isFinishMeta,
-          isFinish.isAcceptableOrUnknown(data['is_finish'], _isFinishMeta));
-    } else if (isInserting) {
+          isFinish.isAcceptableValue(d.isFinish.value, _isFinishMeta));
+    } else if (isFinish.isRequired && isInserting) {
       context.missing(_isFinishMeta);
     }
-    if (data.containsKey('todo_type')) {
+    if (d.todoType.present) {
       context.handle(_todoTypeMeta,
-          todoType.isAcceptableOrUnknown(data['todo_type'], _todoTypeMeta));
-    } else if (isInserting) {
+          todoType.isAcceptableValue(d.todoType.value, _todoTypeMeta));
+    } else if (todoType.isRequired && isInserting) {
       context.missing(_todoTypeMeta);
     }
     return context;
@@ -438,41 +335,100 @@ class $TodoTable extends Todo with TableInfo<$TodoTable, TodoData> {
   }
 
   @override
+  Map<String, Variable> entityToSql(TodoCompanion d) {
+    final map = <String, Variable>{};
+    if (d.id.present) {
+      map['id'] = Variable<int, IntType>(d.id.value);
+    }
+    if (d.date.present) {
+      map['date'] = Variable<DateTime, DateTimeType>(d.date.value);
+    }
+    if (d.time.present) {
+      map['time'] = Variable<DateTime, DateTimeType>(d.time.value);
+    }
+    if (d.task.present) {
+      map['task'] = Variable<String, StringType>(d.task.value);
+    }
+    if (d.description.present) {
+      map['description'] = Variable<String, StringType>(d.description.value);
+    }
+    if (d.isFinish.present) {
+      map['is_finish'] = Variable<bool, BoolType>(d.isFinish.value);
+    }
+    if (d.todoType.present) {
+      map['todo_type'] = Variable<int, IntType>(d.todoType.value);
+    }
+    return map;
+  }
+
+  @override
   $TodoTable createAlias(String alias) {
     return $TodoTable(_db, alias);
   }
 }
 
 abstract class _$Database extends GeneratedDatabase {
-  _$Database(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
+  _$Database(QueryExecutor e) : super(const SqlTypeSystem.withDefaults(), e);
   $TodoTable _todo;
   $TodoTable get todo => _todo ??= $TodoTable(this);
-  Selectable<TodoData> getByType(int var1) {
-    return customSelect('SELECT * FROM todo WHERE todo_type = ?',
-        variables: [Variable.withInt(var1)],
-        readsFrom: {todo}).map(todo.mapFromRow);
+  TodoData _rowToTodoData(QueryRow row) {
+    return TodoData(
+      id: row.readInt('id'),
+      date: row.readDateTime('date'),
+      time: row.readDateTime('time'),
+      task: row.readString('task'),
+      description: row.readString('description'),
+      isFinish: row.readBool('is_finish'),
+      todoType: row.readInt('todo_type'),
+    );
   }
 
-  Future<int> _completeTask(int var1) {
-    return customUpdate(
+  Future<List<TodoData>> getByType(
+      int var1,
+      {@Deprecated('No longer needed with Moor 1.6 - see the changelog for details')
+          QueryEngine operateOn}) {
+    return (operateOn ?? this)
+        .customSelect('SELECT * FROM todo WHERE todo_type = ?', variables: [
+      Variable.withInt(var1),
+    ]).then((rows) => rows.map(_rowToTodoData).toList());
+  }
+
+  Stream<List<TodoData>> watchGetByType(int var1) {
+    return customSelectStream('SELECT * FROM todo WHERE todo_type = ?',
+        variables: [
+          Variable.withInt(var1),
+        ],
+        readsFrom: {
+          todo
+        }).map((rows) => rows.map(_rowToTodoData).toList());
+  }
+
+  Future<int> _completeTask(
+      int var1,
+      {@Deprecated('No longer needed with Moor 1.6 - see the changelog for details')
+          QueryEngine operateOn}) {
+    return (operateOn ?? this).customUpdate(
       'UPDATE todo SET isFinish = 1 WHERE id = ?',
-      variables: [Variable.withInt(var1)],
+      variables: [
+        Variable.withInt(var1),
+      ],
       updates: {todo},
-      updateKind: UpdateKind.update,
     );
   }
 
-  Future<int> _deleteTask(int var1) {
-    return customUpdate(
+  Future<int> _deleteTask(
+      int var1,
+      {@Deprecated('No longer needed with Moor 1.6 - see the changelog for details')
+          QueryEngine operateOn}) {
+    return (operateOn ?? this).customUpdate(
       'DELETE FROM todo WHERE id = ?',
-      variables: [Variable.withInt(var1)],
+      variables: [
+        Variable.withInt(var1),
+      ],
       updates: {todo},
-      updateKind: UpdateKind.delete,
     );
   }
 
   @override
-  Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
-  @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [todo];
+  List<TableInfo> get allTables => [todo];
 }

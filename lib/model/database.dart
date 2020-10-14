@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:moor_flutter/moor_flutter.dart';
 import 'package:todo_list/model/todo.dart';
 
@@ -11,6 +12,6 @@ part 'database.g.dart';
     '_deleteTask': 'DELETE FROM todo WHERE id = ?'
   })
 
-class Database {
-
+class Database{
+  
 }
