@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:todo_list/model/database.dart';
+import 'package:todo_list/model/todo.dart';
 import 'package:todo_list/widgets/custom_button.dart';
 import 'package:todo_list/widgets/custom_date_time_picker.dart';
 import 'package:todo_list/widgets/custom_modal_action_button.dart';
@@ -8,7 +10,6 @@ import 'package:todo_list/widgets/custom_textfield.dart';
 
 
 class AddTaskPage extends StatefulWidget {
-  AddTaskPage({Key key}) : super(key: key);
 
   @override
   _AddTaskPageState createState() => _AddTaskPageState();
@@ -16,6 +17,7 @@ class AddTaskPage extends StatefulWidget {
 
 class _AddTaskPageState extends State<AddTaskPage> {
     DateTime _selectedDate = DateTime.now();
+    final _textTaskController = TextEditingController();
 
   Future _pickDate() async {
     DateTime datepick = await showRoundedDatePicker(
@@ -39,6 +41,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
   @override
   Widget build(BuildContext context) {
+    _textTaskController.clear();
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -55,7 +58,10 @@ class _AddTaskPageState extends State<AddTaskPage> {
           SizedBox(
             height: 24,
           ),
-          CustomTextField(labelText: 'Введите задачу'),
+          CustomTextField(
+            labelText: 'Введите задачу',
+            controller: _textTaskController,
+          ),
           SizedBox(
             height: 12,
           ),
@@ -71,7 +77,21 @@ class _AddTaskPageState extends State<AddTaskPage> {
             onClose: () {
                 Navigator.of(context).pop();
               }, 
-            onSave: () {}
+            onSave: () {
+              if (_textTaskController.text == "") {
+                print("Информация не найдена");
+              } else {
+                Database().insertTodoEntries(new TodoData(
+                  date: _selectedDate,
+                  time: DateTime.now(),
+                  isFinish: false,
+                  task: _textTaskController.text,
+                  description: "",
+                  todoType: TodoType.TYPE_TASK.index,
+                  id: null,
+                )).whenComplete(() => Navigator.of(context).pop());
+              }
+            }
             ),
         ],
       ),

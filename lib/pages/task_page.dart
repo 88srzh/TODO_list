@@ -45,7 +45,7 @@ Center(
     );
   }
 
-  Widget _taskUncomplete(Task data) {
+  Widget _taskUncomplete(TodoData data) {
     return InkWell(
       onTap: () {
         showDialog(
