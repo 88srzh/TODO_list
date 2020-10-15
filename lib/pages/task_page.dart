@@ -29,7 +29,10 @@ class _TaskPageState extends State<TaskPage> {
     return StreamBuilder(
       stream: Database().getTodoByType(TodoType.TYPE_TASK.index),
       builder: (context, snapshot) {
-return ListView.builder(
+return snapshot.data == null ? 
+Center(
+  child: CircularProgressIndicator()) : 
+  ListView.builder(
         padding: const EdgeInsets.all(0),
         itemCount: snapshot.data.length,
         itemBuilder: (context, index) {

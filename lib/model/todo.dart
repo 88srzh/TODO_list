@@ -10,5 +10,5 @@ class Todo extends Table {
   IntColumn get todoType => integer()();
 }
 
-enum ToDoType {TYPE_TASK, TYPE_EVENT}
+enum TodoType {TYPE_TASK, TYPE_EVENT}
 
