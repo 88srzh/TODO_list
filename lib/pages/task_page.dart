@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:todo_list/model/database.dart';
 import 'package:todo_list/model/todo.dart';
 import 'package:todo_list/widgets/custom_button.dart';
@@ -37,7 +38,7 @@ Center(
         itemCount: snapshot.data.length,
         itemBuilder: (context, index) {
           return snapshot.data[index].isFinish
-              ? _taskComplete(snapshot.data[index].task)
+              ? _taskComplete(snapshot.data[index])
               : _taskUncomplete(snapshot.data[index]);
         },
       );
@@ -72,14 +73,16 @@ Center(
                         SizedBox(
                           height: 24,
                         ),
-                        Text("Время"),
+                        Text(new DateFormat("dd-MM-yyyy").format(data.date)),
                         SizedBox(
                           height: 24,
                           ),
                           CustomButton(
                             buttonText: "Выполнено",
                             onPressed: () {
-                              // todo: implement database request to complete
+                              Database()
+                              .completeTodoEntries(data.id)
+                              .whenComplete(() => Navigator.of(context).pop());
                             },
                             color: Theme.of(context).accentColor,
                             textColor: Colors.white,
@@ -116,14 +119,16 @@ Center(
                         SizedBox(
                           height: 24,
                         ),
-                        Text("дата"),
+                        Text(new DateFormat("dd-MM-yyyy").format(data.date)),
                         SizedBox(
                           height: 24,
                           ),
                           CustomButton(
                             buttonText: "Удалено",
                             onPressed: () {
-                              // todo: implement database request to complete
+                              Database()
+                              .deleteTodoEntries(data.id)
+                              .whenComplete(() => Navigator.of(context).pop());
                             },
                             color: Theme.of(context).accentColor,
                             textColor: Colors.white,
@@ -155,7 +160,7 @@ Center(
     );
   }
 
-  Widget _taskComplete(String task) {
+  Widget _taskComplete(TodoData data) {
     return Container(
       foregroundDecoration: BoxDecoration(
         color: Color(0x60FDFDFD),
@@ -173,7 +178,7 @@ Center(
             SizedBox(
               width: 28,
             ),
-            Text(task),
+            Text(data.task),
           ],
         ),
       ),
