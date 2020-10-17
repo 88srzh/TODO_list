@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_list/model/database.dart';
 import 'package:todo_list/model/todo.dart';
 import 'package:todo_list/widgets/custom_button.dart';
@@ -9,40 +10,33 @@ class TaskPage extends StatefulWidget {
   _TaskPageState createState() => _TaskPageState();
 }
 
-class Task {
-  final String task;
-  final bool isFinish;
-  const Task(this.task, this.isFinish);
-}
 
-final List<Task> _taskList = [
-  new Task('Позвонить Тому насчет сервера', false),
-  new Task('Купить продуктов', false),
-  new Task('Погулять с собакой', false),
-  new Task('Накормить кота', false),
-  new Task('Позавтракать', true),
-  new Task('Сходить на тренировку', true),
-];
 
 class _TaskPageState extends State<TaskPage> {
+  Database provider;
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: Database().getTodoByType(TodoType.TYPE_TASK.index),
-      builder: (context, snapshot) {
-return snapshot.data == null ? 
+    provider = Provider.of<Database>(context);
+
+    return StreamProvider.value(
+      value: provider.getTodoByType(TodoType.TYPE_TASK.index),
+      child: Consumer<List<TodoData>> (
+        builder: (context, _dataList, child) {
+return _dataList == null ? 
 Center(
   child: CircularProgressIndicator()) : 
   ListView.builder(
         padding: const EdgeInsets.all(0),
-        itemCount: snapshot.data.length,
+        itemCount: _dataList.length,
         itemBuilder: (context, index) {
-          return snapshot.data[index].isFinish
-              ? _taskComplete(snapshot.data[index])
-              : _taskUncomplete(snapshot.data[index]);
+          return _dataList[index].isFinish
+              ? _taskComplete(_dataList[index])
+              : _taskUncomplete(_dataList[index]);
         },
       );
-      }, 
+        },
+      ),
     );
   }
 
@@ -80,7 +74,7 @@ Center(
                           CustomButton(
                             buttonText: "Выполнено",
                             onPressed: () {
-                              Database()
+                              provider
                               .completeTodoEntries(data.id)
                               .whenComplete(() => Navigator.of(context).pop());
                             },
@@ -126,7 +120,7 @@ Center(
                           CustomButton(
                             buttonText: "Удалено",
                             onPressed: () {
-                              Database()
+                              provider
                               .deleteTodoEntries(data.id)
                               .whenComplete(() => Navigator.of(context).pop());
                             },

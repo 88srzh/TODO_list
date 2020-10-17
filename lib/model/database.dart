@@ -11,7 +11,7 @@ part 'database.g.dart';
     '_completeTask': 'UPDATE todo SET isFinish = 1 WHERE id = ?',
     '_deleteTask': 'DELETE FROM todo WHERE id = ?'
   })
-class Database extends _$Database{
+class Database extends _$Database with ChangeNotifier{
     Database() : super(FlutterQueryExecutor.inDatabaseFolder(path: 'todos_file.sqlite'));
 
   @override

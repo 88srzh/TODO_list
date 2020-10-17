@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_list/model/database.dart';
 import 'package:todo_list/model/todo.dart';
 import 'package:todo_list/widgets/custom_button.dart';
@@ -41,6 +42,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<Database>(context);
     _textTaskController.clear();
     return Padding(
       padding: const EdgeInsets.all(24.0),
@@ -81,7 +83,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
               if (_textTaskController.text == "") {
                 print("Информация не найдена");
               } else {
-                Database().insertTodoEntries(new TodoData(
+                provider
+                .insertTodoEntries(new TodoData(
                   date: _selectedDate,
                   time: DateTime.now(),
                   isFinish: false,
