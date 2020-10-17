@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:todo_list/widgets/custom_date_time_picker.dart';
 import 'package:todo_list/widgets/custom_modal_action_button.dart';
 import 'package:todo_list/widgets/custom_textfield.dart';
@@ -11,7 +12,7 @@ class AddEventPage extends StatefulWidget {
 }
 class _AddEventPageState extends State<AddEventPage> {
 
-  String _selectedDate = 'Выберите дату';
+  DateTime _selectedDate = DateTime.now();
   String _selectedTime = 'Выберите время';
 
   Future _pickDate() async {
@@ -30,7 +31,7 @@ class _AddEventPageState extends State<AddEventPage> {
       bodyText2 : TextStyle(color: Colors.black),
          )));
       if (datepick != null) setState(() {
-        _selectedDate = datepick.toString();
+        _selectedDate = datepick;
       });
   }
 
@@ -63,11 +64,12 @@ class _AddEventPageState extends State<AddEventPage> {
           CustomDateTimePicker(
             onPressed: _pickDate,
             icon: Icons.date_range, 
-            value: _selectedDate,
+            value: new DateFormat("dd-MM-yyyy").format(_selectedDate),
             ),
-          SizedBox(
-            height: 24,
-          ),
+          CustomDateTimePicker(
+            onPressed: () {},
+            icon: Icons.access_time,
+            value: new DateFormat.yMMMd().format(new DateTime.now())),
           CustomModalActionButton(
             onClose: () {
                 Navigator.of(context).pop();
