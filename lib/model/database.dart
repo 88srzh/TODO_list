@@ -7,8 +7,8 @@ part 'database.g.dart';
 @UseMoor (
   tables: [Todo],
   queries: {
-    'getByType': 'SELECT * FROM todo WHERE todo_type = ?',
-    '_completeTask': 'UPDATE todo SET isFinish = 1 WHERE id = ?',
+    'getByType': 'SELECT * FROM todo WHERE todo_type = ? order by is_finish, date, time',
+    '_completeTask': 'UPDATE todo SET is_finish = 1 WHERE id = ?',
     '_deleteTask': 'DELETE FROM todo WHERE id = ?'
   })
 class Database extends _$Database with ChangeNotifier{
