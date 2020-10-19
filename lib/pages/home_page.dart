@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_list/pages/add_event_page.dart';
 import 'package:todo_list/pages/add_task_page.dart';
@@ -78,6 +79,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+
   Widget _mainContent(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +88,7 @@ class _HomePageState extends State<HomePage> {
         Padding(
           padding: const EdgeInsets.all(24.0),
           child: Text(
-            "Понедельник",
+            new DateFormat("EEEE", 'ru').format(DateTime.now()),
             style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           ),
         ),
