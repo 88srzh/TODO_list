@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_list/model/database.dart';
+import 'package:todo_list/model/todo.dart';
 import 'package:todo_list/widgets/custom_date_time_picker.dart';
 import 'package:todo_list/widgets/custom_modal_action_button.dart';
 import 'package:todo_list/widgets/custom_textfield.dart';
@@ -11,10 +15,11 @@ class AddEventPage extends StatefulWidget {
 }
 class _AddEventPageState extends State<AddEventPage> {
 
-  String _selectedDate = 'Выберите дату';
-  String _selectedTime = 'Выберите время';
+  DateTime _selectedDate = DateTime.now();
+  // String _selectedTime = 'Выберите время';
+  final _textEventController = TextEditingController();
 
-  Future _pickDate() async {
+   Future _pickDate() async {
     DateTime datepick = await showRoundedDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -30,12 +35,14 @@ class _AddEventPageState extends State<AddEventPage> {
       bodyText2 : TextStyle(color: Colors.black),
          )));
       if (datepick != null) setState(() {
-        _selectedDate = datepick.toString();
+        _selectedDate = datepick;
       });
   }
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<Database>(context);
+    _textEventController.clear();
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -63,16 +70,31 @@ class _AddEventPageState extends State<AddEventPage> {
           CustomDateTimePicker(
             onPressed: _pickDate,
             icon: Icons.date_range, 
-            value: _selectedDate,
+            value: new DateFormat("dd-MM-yyyy").format(_selectedDate),
             ),
           SizedBox(
             height: 24,
           ),
           CustomModalActionButton(
-            onClose: () {
+              onClose: () {
                 Navigator.of(context).pop();
               }, 
-            onSave: () {}
+            onSave: () {
+              if (_textEventController.text == "") {
+                print("Информация не найдена");
+              } else {
+                provider
+                .insertTodoEntries(new TodoData(
+                  date: _selectedDate,
+                  time: DateTime.now(),
+                  isFinish: false,
+                  task: _textEventController.text,
+                  description: "",
+                  todoType: TodoType.TYPE_EVENT.index,
+                  id: null,
+                )).whenComplete(() => Navigator.of(context).pop());
+              }
+            }
             ),
         ],
       ),
