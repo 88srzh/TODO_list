@@ -118,7 +118,7 @@ Center(
                           height: 24,
                           ),
                           CustomButton(
-                            buttonText: "Удалено",
+                            buttonText: "Удалить",
                             onPressed: () {
                               provider
                               .deleteTodoEntries(data.id)
@@ -186,7 +186,7 @@ Center(
                           height: 24,
                           ),
                           CustomButton(
-                            buttonText: "Удалено",
+                            buttonText: "Удалить",
                             onPressed: () {
                               provider
                               .deleteTodoEntries(data.id)
@@ -202,8 +202,6 @@ Center(
           }
           );
       },
-
-    
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
         child: Row(
