@@ -155,10 +155,55 @@ Center(
   }
 
   Widget _taskComplete(TodoData data) {
-    return Container(
-      foregroundDecoration: BoxDecoration(
-        color: Color(0x60FDFDFD),
-      ),
+    return InkWell(
+      onLongPress: () {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+                ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text("Удалить задачу", 
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16 )
+                      ),
+                      SizedBox(
+                        height: 24,
+                        ),
+                        Text(data.task),
+                        SizedBox(
+                          height: 24,
+                        ),
+                        Text(new DateFormat("dd-MM-yyyy").format(data.date)),
+                        SizedBox(
+                          height: 24,
+                          ),
+                          CustomButton(
+                            buttonText: "Удалено",
+                            onPressed: () {
+                              provider
+                              .deleteTodoEntries(data.id)
+                              .whenComplete(() => Navigator.of(context).pop());
+                            },
+                            color: Theme.of(context).accentColor,
+                            textColor: Colors.white,
+                            ),
+                  ]
+                ),
+              ),
+            );
+          }
+          );
+      },
+
+    
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
         child: Row(
