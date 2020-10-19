@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:todo_list/pages/add_event_page.dart';
 import 'package:todo_list/pages/add_task_page.dart';
 import 'package:todo_list/pages/event_page.dart';
@@ -35,7 +36,7 @@ class _HomePageState extends State<HomePage> {
           Positioned(
             right: 0,
             child: Text(
-              "12",
+              new DateFormat("dd").format(DateTime.now()),
               style: TextStyle(fontSize: 200, color: Color(0x10000000)),
             ),
           ),
