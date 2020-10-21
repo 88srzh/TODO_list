@@ -15,7 +15,8 @@ class AddEventPage extends StatefulWidget {
 
 class _AddEventPageState extends State<AddEventPage> {
   DateTime _selectedDate = DateTime.now();
-  // String _selectedTime = 'Выберите время';
+  
+
   final _textEventController = TextEditingController();
   final _textEventDescriptionController = TextEditingController();
 
@@ -39,6 +40,11 @@ class _AddEventPageState extends State<AddEventPage> {
         _selectedDate = datepick;
       });
   }
+
+  //  Future _pickTime() async {
+  //   String formattedTime = DateFormat('kk:mm')
+  //   .format(_selectedTime);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +97,7 @@ class _AddEventPageState extends State<AddEventPage> {
                   .insertTodoEntries(new TodoData(
                     date: _selectedDate,
                     time: DateTime.now(),
+                    
                     isFinish: false,
                     task: _textEventController.text,
                     description: _textEventDescriptionController.text,

@@ -10,27 +10,6 @@ class EventPage extends StatefulWidget {
   @override
   _EventPageState createState() => _EventPageState();
 }
-
-// class Event {
-//   final String time;
-//   final String task;
-//   final String desc;
-//   final bool isFinish;
-
-//   const Event(this.time, this.task, this.desc, this.isFinish);
-// }
-
-// final List<Event> _eventList = [
-//   new Event("08:00", "Попить чая с Георгичем", "Личное", true),
-//   new Event("10:00", "Написать отчет", "Работа", true),
-//   new Event("12:00", "Сходить за молоком", "Лично", false),
-//   new Event("14:00", "Сделать документацию", "Работа", false),
-//   new Event("16:00", "Посмотреть теоритический курс", "Лично", false),
-//   new Event("18:00", "Помыть кота", "Лично", false),
-//   new Event("20:00", "Еще чего-нибудь поделать", "Лично", false),
-//   new Event("22:00", "Настроить ило", "Работа", false),
-// ];
-
 class _EventPageState extends State<EventPage> {
   Database provider;
 
@@ -151,7 +130,7 @@ class _EventPageState extends State<EventPage> {
         child: Row(
           children: <Widget>[
             // _lineStyle(context, iconSize, 3, 5, true),
-            _displayTime(),
+            _displayTime(data),
             _displayContent(data)
           ],
         ),
@@ -205,7 +184,9 @@ class _EventPageState extends State<EventPage> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
         child: Row(
-          children: <Widget>[_displayTime(), _displayContent(data)],
+          children: <Widget>[
+            _displayTime(data),
+          _displayContent(data)],
         ),
       ),
     );
@@ -242,15 +223,14 @@ class _EventPageState extends State<EventPage> {
     );
   }
 
-  Container _displayTime() {
-    TimeOfDay _currentTime = new TimeOfDay.now();
-
+  Container _displayTime(TodoData data) {
     return Container(
         width: 80,
         child: Padding(
           padding: const EdgeInsets.only(left: 8.0),
-          child: Text('8:00'),
-        ));
+          child: Text(new DateFormat("hh : mm").format(data.time)),
+          ),
+        );
   }
 
 //   Container _lineStyle(BuildContext context, double iconSize, int index,
@@ -278,6 +258,7 @@ class _EventPageState extends State<EventPage> {
 //         ));
 //   }
 }
+
 
 class IconDecoration extends Decoration {
   final double iconSize;
