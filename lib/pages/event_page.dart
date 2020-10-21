@@ -32,8 +32,8 @@ class _EventPageState extends State<EventPage> {
                   itemBuilder: (context, index) {
                     return _eventList[index].isFinish
                         // padding: const EdgeInsets.only(left: 24.0, right: 24.0),
-                        ? _eventUncomplete(_eventList[index])
-                        : _eventComplete(_eventList[index]);
+                        ? _eventComplete(_eventList[index])
+                        : _eventUncomplete(_eventList[index]);
                   },
                 );
         },
@@ -129,7 +129,7 @@ class _EventPageState extends State<EventPage> {
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
         child: Row(
           children: <Widget>[
-            // _lineStyle(context, iconSize, 3, 5, true),
+            _simpleLineStyle(data),
             _displayTime(data),
             _displayContent(data)
           ],
@@ -185,6 +185,7 @@ class _EventPageState extends State<EventPage> {
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
         child: Row(
           children: <Widget>[
+            _simpleLineStyle(data),
             _displayTime(data),
           _displayContent(data)],
         ),
@@ -233,30 +234,55 @@ class _EventPageState extends State<EventPage> {
         );
   }
 
-//   Container _lineStyle(BuildContext context, double iconSize, int index,
-//       int listLenght, bool isFinish) {
-//     return Container(
-//         decoration: CustomIconDecoration(
-//             iconSize: iconSize,
-//             lineWidth: 1,
-//             firstData: index == 0 ?? true,
-//             lastData: index == listLenght - 1 ?? true),
-//         child: Container(
-//           decoration: BoxDecoration(
-//               borderRadius: BorderRadius.all(Radius.circular(50)),
-//               boxShadow: [
-//                 BoxShadow(
-//                     offset: Offset(0, 3),
-//                     color: Color(0x20000000),
-//                     blurRadius: 5)
-//               ]),
-//           child: Icon(
-//             isFinish ? Icons.fiber_manual_record : Icons.radio_button_unchecked,
-//             size: 20,
-//             color: Theme.of(context).accentColor,
-//           ),
-//         ));
-//   }
+  // Container _lineStyle(BuildContext context, double iconSize, int index,
+  //     int listLenght, bool isFinish) {
+  //   return Container(
+  //       decoration: CustomIconDecoration(
+  //           iconSize: iconSize,
+
+  //           lineWidth: 1,
+  //           firstData: index == 0 ?? true,
+  //           lastData: index == listLenght - 1 ?? true),
+  //       child: Container(
+  //         decoration: BoxDecoration(
+  //             borderRadius: BorderRadius.all(Radius.circular(50)),
+  //             boxShadow: [
+  //               BoxShadow(
+  //                   offset: Offset(0, 3),
+  //                   color: Color(0x20000000),
+  //                   blurRadius: 5)
+  //             ]),
+  //         child: Icon(
+  //           isFinish 
+  //           ? Icons.fiber_manual_record
+  //           : Icons.radio_button_unchecked,
+  //           size: 20,
+  //           color: Theme.of(context).accentColor,
+  //         ),
+  //       ));
+  // }
+}
+
+Container _simpleLineStyle(TodoData data) {
+  return Container(
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(50)),
+              boxShadow: [
+                BoxShadow(
+                    offset: Offset(0, 3),
+                    color: Color(0x20000000),
+                    blurRadius: 5)
+              ]),
+          child: Icon(
+            data.isFinish 
+            ? Icons.radio_button_checked
+            : Icons.radio_button_unchecked,
+            size: 20,
+            color: Colors.redAccent,
+          ),
+        )
+  );
 }
 
 

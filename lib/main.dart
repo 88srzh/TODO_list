@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/model/database.dart';
+import 'package:todo_list/pages/login.dart';
 import './pages/home_page.dart';
 
 void main() {
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
             accentColor: Colors.redAccent,
             fontFamily: "CormorantInfant"),
         title: 'Task App',
-        home: HomePage(),
+        home: AuthorizationPage(),
       ),
     );
   }
