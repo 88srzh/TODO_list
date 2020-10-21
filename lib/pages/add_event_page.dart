@@ -16,7 +16,8 @@ class AddEventPage extends StatefulWidget {
 class _AddEventPageState extends State<AddEventPage> {
   DateTime _selectedDate = DateTime.now();
   // String _selectedTime = 'Выберите время';
-  final _textTaskController = TextEditingController();
+  final _textEventController = TextEditingController();
+  final _textEventDescriptionController = TextEditingController();
 
   Future _pickDate() async {
     DateTime datepick = await showRoundedDatePicker(
@@ -41,8 +42,9 @@ class _AddEventPageState extends State<AddEventPage> {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<Database>(context);
-    _textTaskController.clear();
+    var providerEvent = Provider.of<Database>(context);
+    _textEventController.clear();
+    _textEventDescriptionController.clear();
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -59,11 +61,15 @@ class _AddEventPageState extends State<AddEventPage> {
           SizedBox(
             height: 24,
           ),
-          CustomTextField(labelText: 'Добавить новое событие'),
+          CustomTextField(
+            labelText: 'Добавить новое событие',
+            controller: _textEventController,),
           SizedBox(
             height: 12,
           ),
-          CustomTextField(labelText: 'Введите описание'),
+          CustomTextField(
+            labelText: 'Введите описание',
+          controller: _textEventDescriptionController,),
           SizedBox(
             height: 12,
           ),
@@ -78,17 +84,17 @@ class _AddEventPageState extends State<AddEventPage> {
           CustomModalActionButton(onClose: () {
             Navigator.of(context).pop();
           }, onSave: () {
-            if (_textTaskController.text == "") {
+            if (_textEventController.text == "") {
               print("Информация не найдена");
             } else {
-              provider
+              providerEvent
                   .insertTodoEntries(new TodoData(
                     date: _selectedDate,
                     time: DateTime.now(),
                     isFinish: false,
-                    task: _textTaskController.text,
-                    description: "",
-                    todoType: TodoType.TYPE_TASK.index,
+                    task: _textEventController.text,
+                    description: _textEventDescriptionController.text,
+                    todoType: TodoType.TYPE_EVENT.index,
                     id: null,
                   ))
                   .whenComplete(() => Navigator.of(context).pop());

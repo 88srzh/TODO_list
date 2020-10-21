@@ -40,7 +40,7 @@ class _EventPageState extends State<EventPage> {
     provider = Provider.of<Database>(context);
 
     return StreamProvider.value(
-      value: provider.getTodoByType(TodoType.TYPE_TASK.index),
+      value: provider.getTodoByType(TodoType.TYPE_EVENT.index),
       child: Consumer<List<TodoData>>(
         builder: (context, _eventList, child) {
           return _eventList == null
