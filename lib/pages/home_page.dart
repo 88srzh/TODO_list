@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_list/pages/add_event_page.dart';
 import 'package:todo_list/pages/add_task_page.dart';
@@ -8,8 +7,7 @@ import 'package:todo_list/pages/task_page.dart';
 import 'package:todo_list/widgets/custom_button.dart';
 
 class HomePage extends StatefulWidget {
-
-@override
+  @override
   _HomePageState createState() => _HomePageState();
 }
 
@@ -18,17 +16,16 @@ class _HomePageState extends State<HomePage> {
 
   double currentPage = 0;
 
-
   @override
   Widget build(BuildContext context) {
     _pageController.addListener(() {
       setState(() {
         currentPage = _pageController.page;
       });
-     });
+    });
 
     return Scaffold(
-     body: Stack(
+      body: Stack(
         children: <Widget>[
           Container(
             height: 35,
@@ -79,7 +76,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
   Widget _mainContent(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,16 +93,16 @@ class _HomePageState extends State<HomePage> {
           child: _button(context),
         ),
         Expanded(
-            child: PageView(
-          controller: _pageController,
-          children: <Widget>[TaskPage(), EventPage()],
-            ),
-            ),
+          child: PageView(
+            controller: _pageController,
+            children: <Widget>[TaskPage(), EventPage()],
+          ),
+        ),
       ],
     );
   }
 
-    Widget _button(BuildContext context) {
+  Widget _button(BuildContext context) {
     return Row(
       children: [
         Expanded(
@@ -116,12 +112,18 @@ class _HomePageState extends State<HomePage> {
                 duration: Duration(milliseconds: 500),
                 curve: Curves.bounceInOut,
               );
-            }, 
+            },
             buttonText: "Задачи",
-            color: currentPage < 0.5 ? Theme.of(context).accentColor : Colors.white,
-            textColor: currentPage < 0.5 ? Colors.white : Theme.of(context).accentColor,
-            borderColor: currentPage < 0.5 ? Colors.transparent : Theme.of(context).accentColor,
-            ),
+            color: currentPage < 0.5
+                ? Theme.of(context).accentColor
+                : Colors.white,
+            textColor: currentPage < 0.5
+                ? Colors.white
+                : Theme.of(context).accentColor,
+            borderColor: currentPage < 0.5
+                ? Colors.transparent
+                : Theme.of(context).accentColor,
+          ),
         ),
         SizedBox(
           width: 32,
@@ -133,17 +135,20 @@ class _HomePageState extends State<HomePage> {
                 duration: Duration(milliseconds: 500),
                 curve: Curves.bounceInOut,
               );
-            }, 
+            },
             buttonText: "События",
-            color: currentPage > 0.5 ? Theme.of(context).accentColor : Colors.white,
-            textColor: currentPage > 0.5 ? Colors.white : Theme.of(context).accentColor,
-            borderColor: currentPage > 0.5 ? Colors.transparent : Theme.of(context).accentColor,
-            ),
+            color: currentPage > 0.5
+                ? Theme.of(context).accentColor
+                : Colors.white,
+            textColor: currentPage > 0.5
+                ? Colors.white
+                : Theme.of(context).accentColor,
+            borderColor: currentPage > 0.5
+                ? Colors.transparent
+                : Theme.of(context).accentColor,
+          ),
         ),
       ],
     );
   }
 }
-
-
-

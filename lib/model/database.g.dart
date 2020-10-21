@@ -387,15 +387,16 @@ abstract class _$Database extends GeneratedDatabase {
       int var1,
       {@Deprecated('No longer needed with Moor 1.6 - see the changelog for details')
           QueryEngine operateOn}) {
-    return (operateOn ?? this)
-        .customSelect('SELECT * FROM todo WHERE todo_type = ? order by is_finish, date, time',
+    return (operateOn ?? this).customSelect(
+        'SELECT * FROM todo WHERE todo_type = ? order by is_finish, date, time',
         variables: [
-      Variable.withInt(var1),
-    ]).then((rows) => rows.map(_rowToTodoData).toList());
+          Variable.withInt(var1),
+        ]).then((rows) => rows.map(_rowToTodoData).toList());
   }
 
   Stream<List<TodoData>> watchGetByType(int var1) {
-    return customSelectStream('SELECT * FROM todo WHERE todo_type = ? order by is_finish, date, time',
+    return customSelectStream(
+        'SELECT * FROM todo WHERE todo_type = ? order by is_finish, date, time',
         variables: [
           Variable.withInt(var1),
         ],

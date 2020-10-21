@@ -9,32 +9,32 @@ import 'package:todo_list/widgets/custom_textfield.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 
 class AddEventPage extends StatefulWidget {
-
   @override
   _AddEventPageState createState() => _AddEventPageState();
 }
-class _AddEventPageState extends State<AddEventPage> {
 
+class _AddEventPageState extends State<AddEventPage> {
   DateTime _selectedDate = DateTime.now();
   // String _selectedTime = 'Выберите время';
-  final _textEventController = TextEditingController();
+  final _textTaskController = TextEditingController();
 
-   Future _pickDate() async {
+  Future _pickDate() async {
     DateTime datepick = await showRoundedDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(DateTime.now().year - 1),
-      lastDate: DateTime(DateTime.now().year + 1),
-      borderRadius: 16,
-      theme: ThemeData(
-      primarySwatch: Colors.red,
-      primaryColor: Color.fromRGBO(255, 0, 0, 0.5),
-      accentColor: Colors.redAccent,
-      disabledColor: Colors.blue,
-      accentTextTheme: TextTheme(
-      bodyText2 : TextStyle(color: Colors.black),
-         )));
-      if (datepick != null) setState(() {
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(DateTime.now().year - 1),
+        lastDate: DateTime(DateTime.now().year + 1),
+        borderRadius: 16,
+        theme: ThemeData(
+            primarySwatch: Colors.red,
+            primaryColor: Color.fromRGBO(255, 0, 0, 0.5),
+            accentColor: Colors.redAccent,
+            disabledColor: Colors.blue,
+            accentTextTheme: TextTheme(
+              bodyText2: TextStyle(color: Colors.black),
+            )));
+    if (datepick != null)
+      setState(() {
         _selectedDate = datepick;
       });
   }
@@ -42,7 +42,7 @@ class _AddEventPageState extends State<AddEventPage> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<Database>(context);
-    _textEventController.clear();
+    _textTaskController.clear();
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -69,33 +69,31 @@ class _AddEventPageState extends State<AddEventPage> {
           ),
           CustomDateTimePicker(
             onPressed: _pickDate,
-            icon: Icons.date_range, 
+            icon: Icons.date_range,
             value: new DateFormat("dd-MM-yyyy").format(_selectedDate),
-            ),
+          ),
           SizedBox(
             height: 24,
           ),
-          CustomModalActionButton(
-              onClose: () {
-                Navigator.of(context).pop();
-              }, 
-            onSave: () {
-              if (_textEventController.text == "") {
-                print("Информация не найдена");
-              } else {
-                provider
-                .insertTodoEntries(new TodoData(
-                  date: _selectedDate,
-                  time: DateTime.now(),
-                  isFinish: false,
-                  task: _textEventController.text,
-                  description: "",
-                  todoType: TodoType.TYPE_EVENT.index,
-                  id: null,
-                )).whenComplete(() => Navigator.of(context).pop());
-              }
+          CustomModalActionButton(onClose: () {
+            Navigator.of(context).pop();
+          }, onSave: () {
+            if (_textTaskController.text == "") {
+              print("Информация не найдена");
+            } else {
+              provider
+                  .insertTodoEntries(new TodoData(
+                    date: _selectedDate,
+                    time: DateTime.now(),
+                    isFinish: false,
+                    task: _textTaskController.text,
+                    description: "",
+                    todoType: TodoType.TYPE_TASK.index,
+                    id: null,
+                  ))
+                  .whenComplete(() => Navigator.of(context).pop());
             }
-            ),
+          }),
         ],
       ),
     );
