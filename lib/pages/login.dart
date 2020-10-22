@@ -10,6 +10,13 @@ class AuthorizationPage extends StatefulWidget {
 
 
 class _AuthorizationPageState extends State<AuthorizationPage> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  String _email;
+  String _password;
+  bool showLogin = true;
+
   @override
   Widget build(BuildContext context) {
 
@@ -66,17 +73,38 @@ Widget _loginInput(Icon icon, String hint, TextEditingController loginController
   );
 }
 
-Widget _CustomLoginField(String label, void func()) {
+Widget _loginButton(String text, func()) {
+    return RaisedButton(
+      onPressed: () {
+        func();
+      },
+      splashColor: Theme.of(context).primaryColor,
+      highlightColor: Theme.of(context).primaryColor,
+      color: Colors.white,
+      child: Text(
+        text,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Theme.of(context).primaryColor,
+          fontSize: 20,
+        ),
+      ),
+    );
+}
+
+Widget _customLoginField(String label, void func()) {
   return Container(
   child: Column(
     children: <Widget> [
       Padding(
         padding: EdgeInsets.only(bottom: 20, top: 10),
-        child: _loginInput(),
+        child: _loginInput(
+          Icon(Icons.email), 'EMAIL', _emailController, false),
         ),
       Padding(
         padding: EdgeInsets.only(bottom: 20),
-        child: _loginInput(),
+        child: _loginInput(
+          Icon(Icons.lock), 'PASSWORD', _passwordController, true),
         ),
         SizedBox(
           height: 20
@@ -86,11 +114,20 @@ Widget _CustomLoginField(String label, void func()) {
           child: Container(
             height: 50,
             width: MediaQuery.of(context).size.width,
-            child: Text(label),
+            child: _loginButton(label, func),
           ),
           ),
     ]
   ),);
+}
+
+void _tapLoginButton() {
+  _email = _emailController.text;
+  _password = _passwordController.text;
+
+  _emailController.clear();
+  _passwordController.clear();
+
 }
 
     return Scaffold(
@@ -98,8 +135,8 @@ Widget _CustomLoginField(String label, void func()) {
       body: Column(
         children: <Widget>[
           _logo(),
-          _CustomLoginField('login', () { }),
-
+          _customLoginField('LOGIN', _tapLoginButton,
+          ),
         ],
       ),
     );
