@@ -135,7 +135,45 @@ void _tapLoginButton() {
       body: Column(
         children: <Widget>[
           _logo(),
-          _customLoginField('LOGIN', _tapLoginButton,
+          (
+            showLogin
+            ? Column( 
+              children: <Widget> [
+            _customLoginField('LOGIN', _tapLoginButton),
+            SizedBox(height: 20,),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: GestureDetector(
+                child: Text('Еще не зарегистрированы?',
+                style: TextStyle(fontSize: 20, color: Colors.white)),              
+                onTap:() {
+                  setState(() {
+                    showLogin = false;
+                  });
+                } 
+              ),
+              ),        
+              ],
+            )
+            : Column( 
+              children: <Widget> [
+            _customLoginField('REGISTER', _tapLoginButton),
+            SizedBox(height: 20,),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: GestureDetector(
+                child: Text('Уже зарегистрированы? Войти!',
+                style: TextStyle(fontSize: 20, color: Colors.white)),            
+                onTap:() {
+                  setState(() {
+                    showLogin = true;
+                  });
+                } ,
+              )
+              )
+            
+              ]
+            )
           ),
         ],
       ),
