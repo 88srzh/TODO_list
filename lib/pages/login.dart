@@ -139,7 +139,7 @@ void _tapLoginButton() {
             showLogin
             ? Column( 
               children: <Widget> [
-            _customLoginField('LOGIN', _tapLoginButton),
+            _customLoginField('ВОЙТИ', _tapLoginButton),
             SizedBox(height: 20,),
             Padding(
               padding: EdgeInsets.all(10),
@@ -157,7 +157,7 @@ void _tapLoginButton() {
             )
             : Column( 
               children: <Widget> [
-            _customLoginField('REGISTER', _tapLoginButton),
+            _customLoginField('ЗАРЕГИСТРИРОВАТЬСЯ', _tapLoginButton),
             SizedBox(height: 20,),
             Padding(
               padding: EdgeInsets.all(10),
