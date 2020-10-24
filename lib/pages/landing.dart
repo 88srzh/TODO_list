@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:todo_list/pages/home_page.dart';
-import 'package:todo_list/pages/login.dart';
+// import 'package:flutter/material.dart';
+// import 'package:todo_list/pages/home_page.dart';
 
-class LandingPage extends StatelessWidget{
+// class LandingPage extends StatelessWidget{
 
-  @override
-  Widget build(BuildContext context){
-  final bool isLoggedIn = false;
+//   @override
+//   Widget build(BuildContext context){
+//   final bool isLoggedIn = false;
 
-  return isLoggedIn ? HomePage() : AuthorizationPage();
-}
-}
+//   return isLoggedIn ? HomePage() : AuthorizationPage();
+// }
+// }

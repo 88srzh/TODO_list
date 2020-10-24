@@ -5,6 +5,8 @@ import 'package:todo_list/pages/add_task_page.dart';
 import 'package:todo_list/pages/event_page.dart';
 import 'package:todo_list/pages/task_page.dart';
 import 'package:todo_list/widgets/custom_button.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_list/services/authorization.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -98,6 +100,10 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[TaskPage(), EventPage()],
           ),
         ),
+        RaisedButton(
+          onPressed: () {      
+            context.read<AuthentificationService>().signOut();
+          }),
       ],
     );
   }

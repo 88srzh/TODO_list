@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/model/database.dart';
 import 'package:todo_list/pages/home_page.dart';
+import 'package:todo_list/pages/login.dart';
 import 'package:todo_list/pages/signIn.dart';
 import 'package:todo_list/services/authorization.dart';
 
@@ -62,6 +63,6 @@ class AuthentificationWrapper extends StatelessWidget {
     if (firebaseUser != null) {
       return HomePage();
     }
-    return SignInPage();
+    return AuthorizationPage();
   }
 }

@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-class User{
+class AuthUser{
   String id;
 
   // ignore: deprecated_member_use
-  User.fromFirebase(FirebaseUser user) {
+  AuthUser.fromFirebase(FirebaseUser user) {
     id = user.uid;
   }
   }
