@@ -139,6 +139,12 @@ void _tapLoginButton() {
 
 }
 
+void callLoginButton() {
+  context.read<AuthentificationService>().signUp(
+
+  );
+}
+
     return Scaffold(
       backgroundColor: Theme.of(context).accentColor,
       body: Column(
@@ -167,7 +173,7 @@ void _tapLoginButton() {
             )
             : Column( 
               children: <Widget> [
-            _customLoginField('ЗАРЕГИСТРИРОВАТЬСЯ', _tapLoginButton),
+            _customLoginField('ЗАРЕГИСТРИРОВАТЬСЯ', callLoginButton),
             SizedBox(height: 20,),
             Padding(
               padding: EdgeInsets.all(10),
