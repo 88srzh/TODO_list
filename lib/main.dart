@@ -6,8 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:todo_list/model/database.dart';
 import 'package:todo_list/pages/authorizationPage.dart';
 import 'package:todo_list/pages/home_page.dart';
-import 'package:todo_list/pages/login.dart';
-import 'package:todo_list/pages/signIn.dart';
 import 'package:todo_list/services/authorization.dart';
 
 Future<void> main() async {
