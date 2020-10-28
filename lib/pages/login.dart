@@ -9,8 +9,6 @@ class AuthorizationPage extends StatefulWidget {
   _AuthorizationPageState createState() => _AuthorizationPageState();
 }
 
-
-
 class _AuthorizationPageState extends State<AuthorizationPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();

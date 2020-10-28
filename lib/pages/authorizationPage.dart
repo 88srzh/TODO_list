@@ -152,7 +152,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'Забыл пароль?',
+                      'Забыли пароль?',
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
