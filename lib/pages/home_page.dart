@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {},
             ),
             IconButton(
-              icon: Icon(Icons.exit_to_app),
+              icon: Icon(Icons.exit_to_app_sharp),
               onPressed: () {
                 context.read<AuthentificationService>().signOut();
               },
@@ -102,7 +102,6 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[TaskPage(), EventPage()],
           ),
         ),
-               
       ],
     );
   }

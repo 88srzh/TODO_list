@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/model/database.dart';
-import 'package:todo_list/pages/authorizationPage.dart';
+import 'package:todo_list/pages/loginPage.dart';
 import 'package:todo_list/pages/home_page.dart';
 import 'package:todo_list/services/authorization.dart';
 
@@ -24,11 +24,11 @@ class MyApp extends StatelessWidget {
           create: (_) => Database(),
         ),
         Provider<AuthentificationService>(
-          create: (_) => AuthentificationService(FirebaseAuth.instance)
-          ),
+            create: (_) => AuthentificationService(FirebaseAuth.instance)),
         StreamProvider(
-          create: (context) => context.read<AuthentificationService>().authStateChanges,
-          )
+          create: (context) =>
+              context.read<AuthentificationService>().authStateChanges,
+        )
       ],
       child: MaterialApp(
         localizationsDelegates: [
@@ -58,7 +58,7 @@ class AuthentificationWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User>();
-    
+
     if (firebaseUser != null) {
       return HomePage();
     }
