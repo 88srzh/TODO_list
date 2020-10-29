@@ -4,12 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:todo_list/model/database.dart';
 import 'package:todo_list/model/todo.dart';
 import 'package:todo_list/widgets/custom_button.dart';
-import 'package:todo_list/widgets/custom_icon_decoration.dart';
 
 class EventPage extends StatefulWidget {
   @override
   _EventPageState createState() => _EventPageState();
 }
+
 class _EventPageState extends State<EventPage> {
   Database provider;
 
@@ -187,7 +187,8 @@ class _EventPageState extends State<EventPage> {
           children: <Widget>[
             _simpleLineStyle(data),
             _displayTime(data),
-          _displayContent(data)],
+            _displayContent(data)
+          ],
         ),
       ),
     );
@@ -226,12 +227,12 @@ class _EventPageState extends State<EventPage> {
 
   Container _displayTime(TodoData data) {
     return Container(
-        width: 80,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: Text(new DateFormat("hh : mm").format(data.time)),
-          ),
-        );
+      width: 80,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8.0),
+        child: Text(new DateFormat("hh : mm").format(data.time)),
+      ),
+    );
   }
 
   // Container _lineStyle(BuildContext context, double iconSize, int index,
@@ -253,7 +254,7 @@ class _EventPageState extends State<EventPage> {
   //                   blurRadius: 5)
   //             ]),
   //         child: Icon(
-  //           isFinish 
+  //           isFinish
   //           ? Icons.fiber_manual_record
   //           : Icons.radio_button_unchecked,
   //           size: 20,
@@ -265,26 +266,20 @@ class _EventPageState extends State<EventPage> {
 
 Container _simpleLineStyle(TodoData data) {
   return Container(
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
-              boxShadow: [
-                BoxShadow(
-                    offset: Offset(0, 3),
-                    color: Color(0x20000000),
-                    blurRadius: 5)
-              ]),
-          child: Icon(
-            data.isFinish 
-            ? Icons.radio_button_checked
-            : Icons.radio_button_unchecked,
-            size: 20,
-            color: Colors.redAccent,
-          ),
-        )
-  );
+      child: Container(
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(50)),
+        boxShadow: [
+          BoxShadow(
+              offset: Offset(0, 3), color: Color(0x20000000), blurRadius: 5)
+        ]),
+    child: Icon(
+      data.isFinish ? Icons.radio_button_checked : Icons.radio_button_unchecked,
+      size: 20,
+      color: Colors.redAccent,
+    ),
+  ));
 }
-
 
 class IconDecoration extends Decoration {
   final double iconSize;

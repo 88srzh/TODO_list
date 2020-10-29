@@ -127,14 +127,18 @@ class _TaskPageState extends State<TaskPage> {
           children: <Widget>[
             Icon(
               Icons.radio_button_unchecked,
-              // ! Было color: Theme.of(context).accentColor,
               color: Colors.redAccent,
-              size: 20,
+              size: 25,
             ),
             SizedBox(
               width: 28,
             ),
-            Text(data.task),
+            Text(
+              data.task,
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
           ],
         ),
       ),
@@ -191,12 +195,15 @@ class _TaskPageState extends State<TaskPage> {
             Icon(
               Icons.radio_button_checked,
               color: Colors.redAccent,
-              size: 20,
+              size: 25,
             ),
             SizedBox(
               width: 28,
             ),
-            Text(data.task),
+            Text(
+              data.task,
+              style: TextStyle(fontSize: 20),
+            ),
           ],
         ),
       ),

@@ -102,7 +102,6 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[TaskPage(), EventPage()],
           ),
         ),
-        RaisedButton(onPressed: () {}),
       ],
     );
   }

@@ -8,33 +8,32 @@ import 'package:todo_list/widgets/custom_date_time_picker.dart';
 import 'package:todo_list/widgets/custom_modal_action_button.dart';
 import 'package:todo_list/widgets/custom_textfield.dart';
 
-
 class AddTaskPage extends StatefulWidget {
-
   @override
   _AddTaskPageState createState() => _AddTaskPageState();
 }
 
 class _AddTaskPageState extends State<AddTaskPage> {
-    DateTime _selectedDate = DateTime.now();
-    final _textTaskController = TextEditingController();
+  DateTime _selectedDate = DateTime.now();
+  final _textTaskController = TextEditingController();
 
   Future _pickDate() async {
     DateTime datepick = await showRoundedDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(DateTime.now().year - 1),
-      lastDate: DateTime(DateTime.now().year + 1),
-      borderRadius: 16,
-      theme: ThemeData(
-      primarySwatch: Colors.red,
-      primaryColor: Color.fromRGBO(255, 0, 0, 0.5),
-      accentColor: Colors.redAccent,
-      disabledColor: Colors.blue,
-      accentTextTheme: TextTheme(
-      bodyText2 : TextStyle(color: Colors.black),
-         )));
-      if (datepick != null) setState(() {
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(DateTime.now().year - 1),
+        lastDate: DateTime(DateTime.now().year + 1),
+        borderRadius: 16,
+        theme: ThemeData(
+            primarySwatch: Colors.red,
+            primaryColor: Color.fromRGBO(255, 0, 0, 0.5),
+            accentColor: Colors.redAccent,
+            disabledColor: Colors.blue,
+            accentTextTheme: TextTheme(
+              bodyText2: TextStyle(color: Colors.black),
+            )));
+    if (datepick != null)
+      setState(() {
         _selectedDate = datepick;
       });
   }
@@ -53,7 +52,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
             'Добавить новую задачу',
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 16,
+              fontSize: 23,
             ),
           )),
           SizedBox(
@@ -68,33 +67,31 @@ class _AddTaskPageState extends State<AddTaskPage> {
           ),
           CustomDateTimePicker(
             onPressed: _pickDate,
-            icon: Icons.date_range, 
+            icon: Icons.date_range,
             value: new DateFormat("dd-MM-yyyy").format(_selectedDate),
-            ),
+          ),
           SizedBox(
             height: 24,
           ),
-          CustomModalActionButton(
-            onClose: () {
-                Navigator.of(context).pop();
-              }, 
-            onSave: () {
-              if (_textTaskController.text == "") {
-                print("Информация не найдена");
-              } else {
-                provider
-                .insertTodoEntries(new TodoData(
-                  date: _selectedDate,
-                  time: DateTime.now(),
-                  isFinish: false,
-                  task: _textTaskController.text,
-                  description: "",
-                  todoType: TodoType.TYPE_TASK.index,
-                  id: null,
-                )).whenComplete(() => Navigator.of(context).pop());
-              }
+          CustomModalActionButton(onClose: () {
+            Navigator.of(context).pop();
+          }, onSave: () {
+            if (_textTaskController.text == "") {
+              print("Информация не найдена");
+            } else {
+              provider
+                  .insertTodoEntries(new TodoData(
+                    date: _selectedDate,
+                    time: DateTime.now(),
+                    isFinish: false,
+                    task: _textTaskController.text,
+                    description: "",
+                    todoType: TodoType.TYPE_TASK.index,
+                    id: null,
+                  ))
+                  .whenComplete(() => Navigator.of(context).pop());
             }
-            ),
+          }),
         ],
       ),
     );
