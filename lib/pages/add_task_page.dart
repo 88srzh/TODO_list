@@ -53,7 +53,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
             'Добавить новую задачу',
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 16,
+              fontSize: 22,
             ),
           )),
           SizedBox(

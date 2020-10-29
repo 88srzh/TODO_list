@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -134,7 +136,11 @@ class _TaskPageState extends State<TaskPage> {
             SizedBox(
               width: 28,
             ),
-            Text(data.task),
+            Text(data.task,
+            style: TextStyle(
+              fontSize: 23,
+            )
+            ),
           ],
         ),
       ),
@@ -196,7 +202,11 @@ class _TaskPageState extends State<TaskPage> {
             SizedBox(
               width: 28,
             ),
-            Text(data.task),
+            Text(data.task,
+            style: TextStyle(
+              fontSize: 23,
+            )
+            ),
           ],
         ),
       ),

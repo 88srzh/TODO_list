@@ -23,13 +23,13 @@ class CustomDateTimePicker extends StatelessWidget {
               children: [
                 Icon(icon,
                 color: Theme.of(context).accentColor,
-                size: 30,),
+                size: 33,),
                 SizedBox(
                   width: 12,
                 ),
                 Text(
                   value,
-                style: TextStyle(fontSize: 14),
+                style: TextStyle(fontSize: 18),
                 )
               ],
             ),

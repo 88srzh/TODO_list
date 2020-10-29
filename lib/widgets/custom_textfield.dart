@@ -13,6 +13,8 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      style: TextStyle(
+        fontSize: 20),
       controller: controller,
             decoration: InputDecoration(
                 border: OutlineInputBorder(

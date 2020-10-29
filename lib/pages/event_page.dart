@@ -212,11 +212,19 @@ class _EventPageState extends State<EventPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(data.task),
+              Text(data.task,
+              style: TextStyle(
+                fontSize: 20,
+              ),
+              ),
               SizedBox(
                 height: 12,
               ),
-              Text(data.description),
+              Text(data.description,
+              style: TextStyle(
+                fontSize: 18,
+              )
+              ),
             ],
           ),
         ),
@@ -229,7 +237,11 @@ class _EventPageState extends State<EventPage> {
         width: 80,
         child: Padding(
           padding: const EdgeInsets.only(left: 8.0),
-          child: Text(new DateFormat("hh : mm").format(data.time)),
+          child: Text(new DateFormat("hh : mm").format(data.time),
+          style: TextStyle(
+            fontSize: 20,
+          ),
+          ),    
           ),
         );
   }
@@ -278,7 +290,7 @@ Container _simpleLineStyle(TodoData data) {
             data.isFinish 
             ? Icons.radio_button_checked
             : Icons.radio_button_unchecked,
-            size: 20,
+            size: 25,
             color: Colors.redAccent,
           ),
         )
