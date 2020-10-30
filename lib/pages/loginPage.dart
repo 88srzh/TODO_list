@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            'LOGO',
+                            'TODO list',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 35,
