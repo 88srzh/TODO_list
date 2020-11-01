@@ -20,6 +20,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   AnimationController controller;
   final _auth = FirebaseAuth.instance;
   double _opacity = 0.0;
@@ -195,11 +197,41 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                         print (e);
                       }
                     },
-                      child: Container(
-                        decoration: BoxDecoration(
+                      child: RaisedButton(
+                        onPressed: () async {
+                          try {
+                            final user = await _auth.signInWithEmailAndPassword(
+                              email: email,
+                              password: password);
+                              if (user != null) {
+                                  showDialog(
+                            context: context,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 250),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(40)),
+                              ),
+                              child: Column(
+                                children: [                                
+                                  Lottie.asset('images/32887-success.json', height: 150),
+                                  Material(
+                                    child: Text('Thanks for Signing'),
+                                    color: Colors.white,
+                                    type: MaterialType.card,
+                                    textStyle: TextStyle(fontSize: 25, color: Colors.black),
+                                  )
+                                ],
+                              ),
+                              ),
+                            ));
+                              }
+                          } catch (e) {
+                            print (e);
+                          }
+                        },
                           color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(40)),
-                        ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 15.0, horizontal: 55.0),
