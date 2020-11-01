@@ -50,6 +50,8 @@ class MyApp extends StatelessWidget {
         home: AuthentificationWrapper(),
         routes: <String, WidgetBuilder>{
         '/pages/registration.dart': (BuildContext context) => RegistrationPage(),
+        '/pages/loginPage.dart': (BuildContext context) => LoginPage(),
+        '/pages/HomePage.dart': (BuildContext context) => HomePage(),
       }
       ),
     );

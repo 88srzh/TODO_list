@@ -185,7 +185,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                 children: [                                
                                   Lottie.asset('images/32887-success.json', height: 150),
                                   Material(
-                                    child: Text('Thanks for Signing'),
+                                    child: Text('Вы вошли!'),
                                     color: Colors.white,
                                     type: MaterialType.card,
                                     textStyle: TextStyle(fontSize: 25, color: Colors.black),
@@ -195,6 +195,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                               ),
                             ));
                               }
+                              Navigator.pushNamed(context, '/pages/HomePage.dart');
                           } catch (e) {
                             print (e);
                           }

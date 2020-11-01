@@ -120,6 +120,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   )),
             ),
           ),
+          RaisedButton.icon(
+            onPressed: () {
+              Navigator.pushNamed(context, '/pages/loginPage.dart');
+            },
+            icon: Icon(Icons.exit_to_app),
+            label: Text('EXIT',
+            style: TextStyle(
+              fontSize: 23,
+              fontWeight: FontWeight.bold,
+            )
+            ),
+          )
         ],
       ),
     ),
