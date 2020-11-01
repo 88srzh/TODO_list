@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:todo_list/pages/registration.dart';
 
 const kTextFieldDecoration = InputDecoration(
   hintStyle: TextStyle(fontSize: 20.0, color: Colors.white),
@@ -164,40 +165,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                   SizedBox(
                     height: 25,
                   ),
-                  GestureDetector(
-                    onTap: () async {
-                      try {
-                      final newUser = await _auth.createUserWithEmailAndPassword(
-                          email: email, password: password);
-                      if (newUser != null) {
-                        showDialog(
-                            context: context,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 250),
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.all(Radius.circular(40)),
-                              ),
-                              child: Column(
-                                children: [                                
-                                  Lottie.asset('images/32887-success.json', height: 150),
-                                  Material(
-                                    child: Text('Thanks for Signing'),
-                                    color: Colors.white,
-                                    type: MaterialType.card,
-                                    textStyle: TextStyle(fontSize: 25, color: Colors.black),
-                                  )
-                                ],
-                              ),
-                              ),
-                            ));
-                      }
-                      } catch (e) {
-                        print (e);
-                      }
-                    },
-                      child: RaisedButton(
+                 RaisedButton(
                         onPressed: () async {
                           try {
                             final user = await _auth.signInWithEmailAndPassword(
@@ -242,18 +210,23 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                               )),
                         ),
                       ),
-                    
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 200.0),
-                    child: Text(
-                      'Еще нет аккаунта? Зарегистрируйтесь!',
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: Colors.white,
-                      ),
+                     InkWell(
+                       onTap: () {
+                         Navigator.pushNamed(context, '/pages/registration.dart');
+                       },
+                       child: Padding(
+                        padding: const EdgeInsets.only(top: 200.0),
+                        child: Text(
+                          'Еще нет аккаунта? Зарегистрируйтесь!',
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: Colors.white,
+                          ),
+                        ),
+                        
                     ),
-                  )
+                     ),
+                  
                 ],
               ),
             ]),

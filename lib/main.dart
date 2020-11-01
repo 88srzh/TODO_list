@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_list/model/database.dart';
 import 'package:todo_list/pages/loginPage.dart';
 import 'package:todo_list/pages/home_page.dart';
+import 'package:todo_list/pages/registration.dart';
 import 'package:todo_list/services/authorization.dart';
 
 Future<void> main() async {
@@ -47,6 +48,9 @@ class MyApp extends StatelessWidget {
             fontFamily: "CormorantInfant"),
         title: 'Task App',
         home: AuthentificationWrapper(),
+        routes: <String, WidgetBuilder>{
+        '/pages/registration.dart': (BuildContext context) => RegistrationPage(),
+      }
       ),
     );
   }
@@ -62,7 +66,7 @@ class AuthentificationWrapper extends StatelessWidget {
     if (firebaseUser != null) {
       return HomePage();
     }
-    // return AuthorizationPage();
+    // return RegistrationPage();
     return LoginPage();
   }
 }
