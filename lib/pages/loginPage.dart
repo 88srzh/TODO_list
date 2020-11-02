@@ -22,8 +22,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
   AnimationController controller;
   final _auth = FirebaseAuth.instance;
   double _opacity = 0.0;
