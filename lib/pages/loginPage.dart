@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:todo_list/pages/registration.dart';
+import 'package:todo_list/widgets/custom_button.dart';
 
 const kTextFieldDecoration = InputDecoration(
   hintStyle: TextStyle(fontSize: 20.0, color: Colors.white),
@@ -198,26 +199,59 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                               Navigator.pushNamed(context, '/pages/HomePage.dart');
                           } catch (e) {
                             print (
-                              Text('Вы не зарегистрированы'));
+                              Text('Вы не зарегистрированы!'));
                           }
                         },
                           color: Colors.white,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 15.0, horizontal: 55.0),
-                          child: Text('Войти',
-                              style: TextStyle(
-                                fontSize: 23,
-                                fontWeight: FontWeight.bold,
-                              )),
+                          child: CustomButton(
+                              buttonText: 'Войти',
+                              onPressed: () async { 
+                                              try {
+                final user = await _auth.signInWithEmailAndPassword(
+                    email: email, password: password);
+                if (user != null) {
+                  showDialog(
+                      context: context,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 250),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(40)),
+                          ),
+                          child: Column(
+                            children: [
+                              Lottie.asset('images/32887-success.json',
+                                  height: 150),
+                              Material(
+                                child: Text('Вы вошли!'),
+                                color: Colors.white,
+                                type: MaterialType.card,
+                                textStyle:
+                                    TextStyle(fontSize: 25, color: Colors.black),
+                              )
+                            ],
+                          ),
                         ),
                       ),
+                      );
+                }
+              } catch (e) {
+                print(e);
+              }
+                               },
+                            ),
+                 ),
+                 SizedBox(
+                   height: 220,
+                 ),
                      InkWell(
                        onTap: () {
                          Navigator.pushNamed(context, '/pages/registration.dart');
                        },
                        child: Padding(
-                        padding: const EdgeInsets.only(top: 200.0),
+                        padding: const EdgeInsets.only(top: 10.0),
                         child: Text(
                           'Еще нет аккаунта? Зарегистрируйтесь!',
                           style: TextStyle(
