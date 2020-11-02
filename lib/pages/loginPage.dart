@@ -39,10 +39,10 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       duration: Duration(seconds: 4),
     );
     controller.repeat();
-    Future.delayed(Duration(milliseconds: 250), (){
+    Future.delayed(Duration(milliseconds: 250), () {
       _opacity = 1;
     });
-    Future.delayed(Duration(milliseconds: 350), (){
+    Future.delayed(Duration(milliseconds: 350), () {
       _opacity2 = 1;
     });
   }
@@ -62,11 +62,11 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                 opacity: _opacity,
                 duration: Duration(seconds: 5),
                 curve: Curves.easeIn,
-                 child: AnimatedOpacity(
-                   opacity: _opacity2,
-                   duration: Duration(seconds: 5),
-                   curve: Curves.easeInOut,
-                                    child: Column(
+                child: AnimatedOpacity(
+                  opacity: _opacity2,
+                  duration: Duration(seconds: 5),
+                  curve: Curves.easeInOut,
+                  child: Column(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -109,8 +109,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                         ),
                       ),
                     ],
+                  ),
                 ),
-                 ),
               ),
               Column(
                 children: [
@@ -166,103 +166,75 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                   SizedBox(
                     height: 25,
                   ),
-                 RaisedButton(
-                        onPressed: () async {
-                          try {
-                            final user = await _auth.signInWithEmailAndPassword(
-                              email: email,
-                              password: password);
-                              if (user != null) {
-                                  showDialog(
-                            context: context,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 250),
-                              child: Container(
+                  RaisedButton(
+                    onPressed: () async {
+                      try {
+                        final user = await _auth.signInWithEmailAndPassword(
+                            email: email, password: password);
+                        if (user != null) {
+                          showDialog(
+                              context: context,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 40, vertical: 250),
+                                child: Container(
                                   decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.all(Radius.circular(40)),
-                              ),
-                              child: Column(
-                                children: [                                
-                                  Lottie.asset('images/32887-success.json', height: 150),
-                                  Material(
-                                    child: Text('Вы вошли!'),
                                     color: Colors.white,
-                                    type: MaterialType.card,
-                                    textStyle: TextStyle(fontSize: 25, color: Colors.black),
-                                  )
-                                ],
-                              ),
-                              ),
-                            ));
-                              }
-                              Navigator.pushNamed(context, '/pages/HomePage.dart');
-                          } catch (e) {
-                            print (
-                              Text('Вы не зарегистрированы!'));
-                          }
-                        },
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(40)),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Lottie.asset('images/32887-success.json',
+                                          height: 150),
+                                      Material(
+                                        child: Text('Вы вошли!'),
+                                        color: Colors.white,
+                                        type: MaterialType.card,
+                                        textStyle: TextStyle(
+                                            fontSize: 25, color: Colors.black),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ));
+                        }
+                        Navigator.pushNamed(context, '/pages/HomePage.dart');
+                      } catch (e) {
+                        print(Text('Вы не зарегистрированы!'));
+                      }
+                    },
+                    color: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      ),
+                    child: const Text('ВОЙТИ',
+                    style: TextStyle(
+                      fontSize: 23,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 220,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/pages/registration.dart');
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        'Еще нет аккаунта? Зарегистрируйтесь!',
+                        style: TextStyle(
+                          fontSize: 17,
                           color: Colors.white,
-                          child: CustomButton(
-                              buttonText: 'Войти',
-                              onPressed: () async { 
-                                              try {
-                final user = await _auth.signInWithEmailAndPassword(
-                    email: email, password: password);
-                if (user != null) {
-                  showDialog(
-                      context: context,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 40, vertical: 250),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(40)),
-                          ),
-                          child: Column(
-                            children: [
-                              Lottie.asset('images/32887-success.json',
-                                  height: 150),
-                              Material(
-                                child: Text('Вы вошли!'),
-                                color: Colors.white,
-                                type: MaterialType.card,
-                                textStyle:
-                                    TextStyle(fontSize: 25, color: Colors.black),
-                              )
-                            ],
-                          ),
                         ),
                       ),
-                      );
-                }
-              } catch (e) {
-                print(e);
-              }
-                               },
-                            ),
-                 ),
-                 SizedBox(
-                   height: 220,
-                 ),
-                     InkWell(
-                       onTap: () {
-                         Navigator.pushNamed(context, '/pages/registration.dart');
-                       },
-                       child: Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: Text(
-                          'Еще нет аккаунта? Зарегистрируйтесь!',
-                          style: TextStyle(
-                            fontSize: 17,
-                            color: Colors.white,
-                          ),
-                        ),
-                        
+                      
                     ),
-                     ),
-                  
+                  ),
                 ],
               ),
             ]),
