@@ -13,6 +13,7 @@ class RegistrationPage extends StatefulWidget {
 class _RegistrationPageState extends State<RegistrationPage> {
   String email;
   String password;
+  String passwordRepeat;
   final _auth = FirebaseAuth.instance;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -89,6 +90,26 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     ),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 15.0, horizontal: 25.0),
+                  child: TextField(
+                    onChanged: (valueRepeat) {
+                      passwordRepeat = valueRepeat;
+                    },
+                    obscureText: true,
+                    keyboardType: TextInputType.visiblePassword,
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    decoration: kTextFieldDecoration.copyWith(
+                      hintText: 'Repeat password',
+                      prefixIcon: Icon(
+                        Icons.lock,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 25,
                 ),
@@ -98,7 +119,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       final newUser =
                           await _auth.createUserWithEmailAndPassword(
                               email: email, password: password);
-                      if (newUser != null) {
+                      if (newUser != null && password == passwordRepeat) {
                         showDialog(
                             context: context,
                             child: Padding(
@@ -125,6 +146,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 ),
                               ),
                             ));
+                      }
+                      else {
+                        showDialog(
+                          context: null
+                          );
                       }
                     } catch (e) {
                       print(e);

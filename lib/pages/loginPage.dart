@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:todo_list/pages/registration.dart';
 import 'package:todo_list/widgets/custom_button.dart';
 import 'package:todo_list/widgets/login_button.dart';
 
