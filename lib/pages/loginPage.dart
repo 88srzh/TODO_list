@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:todo_list/pages/registration.dart';
 import 'package:todo_list/widgets/custom_button.dart';
+import 'package:todo_list/widgets/login_button.dart';
 
 const kTextFieldDecoration = InputDecoration(
   hintStyle: TextStyle(fontSize: 20.0, color: Colors.white),
@@ -101,7 +102,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                         padding: const EdgeInsets.only(
                             top: 40.0, bottom: 60, right: 130),
                         child: Text(
-                          'Get started here',
+                          'Добро пожаловать!',
                           style: TextStyle(
                             fontSize: 28,
                             color: Colors.white,
@@ -166,7 +167,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                   SizedBox(
                     height: 25,
                   ),
-                  RaisedButton(
+                  LoginButton(
                     onPressed: () async {
                       try {
                         final user = await _auth.signInWithEmailAndPassword(
@@ -198,6 +199,37 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                   ),
                                 ),
                               ));
+                        } else if (email == null || password == null) {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Dialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Text('Поля должны быть заполнены',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                        ),
+                                        CustomButton(
+                                          buttonText: "Закрыть",
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          }, 
+                                          ),
+                                      ],
+                                    ),
+                                    ),
+                              );
+                            }
+                          );
                         }
                         Navigator.pushNamed(context, '/pages/HomePage.dart');
                       } catch (e) {
@@ -205,16 +237,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                       }
                     },
                     color: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
-                      ),
-                    child: const Text('ВОЙТИ',
-                    style: TextStyle(
-                      fontSize: 23,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    ),
+                    buttonText: 'ВОЙТИ',
+                    // ! - при нажатии если поле пусток - уведомление
                   ),
                   SizedBox(
                     height: 220,
@@ -232,7 +256,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                           color: Colors.white,
                         ),
                       ),
-                      
                     ),
                   ),
                 ],
