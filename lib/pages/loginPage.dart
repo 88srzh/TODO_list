@@ -2,8 +2,8 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:todo_list/widgets/custom_button.dart';
 import 'package:todo_list/widgets/login_button.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 const kTextFieldDecoration = InputDecoration(
   hintStyle: TextStyle(fontSize: 20.0, color: Colors.white),
@@ -31,21 +31,21 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   String email;
   String password;
 
-  @override
-  void initState() {
-    super.initState();
-    controller = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 4),
-    );
-    controller.repeat();
-    Future.delayed(Duration(milliseconds: 250), () {
-      _opacity = 1;
-    });
-    Future.delayed(Duration(milliseconds: 350), () {
-      _opacity2 = 1;
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   controller = AnimationController(
+  //     vsync: this,
+  //     duration: Duration(seconds: 4),
+  //   );
+  //   controller.repeat();
+  //   Future.delayed(Duration(milliseconds: 250), () {
+  //     _opacity = 1;
+  //   });
+  //   Future.delayed(Duration(milliseconds: 350), () {
+  //     _opacity2 = 1;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -79,22 +79,22 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                               color: Colors.white,
                             ),
                           ),
-                          AnimatedBuilder(
-                            animation: controller,
-                            child: Container(
-                              child: Image(
-                                image: AssetImage(
-                                    'images/icons/1x/outline_highlight_off_white_48dp.png'),
-                                height: 35,
-                              ),
-                            ),
-                            builder: (BuildContext context, Widget _widget) {
-                              return Transform.rotate(
-                                angle: controller.value * 6.3,
-                                child: _widget,
-                              );
-                            },
-                          ),
+                          // AnimatedBuilder(
+                          //   animation: controller,
+                          //   child: Container(
+                          //     child: Image(
+                          //       image: AssetImage(
+                          //           'images/icons/1x/outline_highlight_off_white_48dp.png'),
+                          //       height: 35,
+                          //     ),
+                          //   ),
+                          //   builder: (BuildContext context, Widget _widget) {
+                          //     return Transform.rotate(
+                          //       angle: controller.value * 6.3,
+                          //       child: _widget,
+                          //     );
+                          //   },
+                          // ),
                         ],
                       ),
                       Padding(
@@ -124,7 +124,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(color: Colors.white, fontSize: 20),
                       decoration: kTextFieldDecoration.copyWith(
-                        hintText: 'Username',
+                        hintText: 'Логин',
                         prefixIcon: Icon(
                           Icons.person,
                           color: Colors.white,
@@ -144,7 +144,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                       keyboardType: TextInputType.visiblePassword,
                       style: TextStyle(color: Colors.white, fontSize: 20),
                       decoration: kTextFieldDecoration.copyWith(
-                        hintText: 'Password',
+                        hintText: 'Пароль',
                         prefixIcon: Icon(
                           Icons.lock,
                           color: Colors.white,
@@ -153,13 +153,25 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Забыли пароль?',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
+                  InkWell(
+                    onTap: () {
+                      Fluttertoast.showToast(
+                              msg: "This is Center Short Toast",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.white,
+                              textColor: Colors.red,
+                              fontSize: 16.0);
+                    },
+                                      child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Забыли пароль?',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -198,47 +210,27 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                   ),
                                 ),
                               ));
-                              Navigator.pushNamed(context, '/pages/home_page.dart');
-                        } else if (email == null || password == null) {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return Dialog(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        Text('Поля должны быть заполнены',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
-                                        ),
-                                        ),
-                                        CustomButton(
-                                          buttonText: "Закрыть",
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          }, 
-                                          ),
-                                      ],
-                                    ),
-                                    ),
-                              );
-                            }
-                          );
+                          Navigator.pushNamed(context, '/pages/home_page.dart');
+                        } 
+                        else if (user == null) {
+                        Fluttertoast.showToast(
+                              msg: "This is Center Short Toast",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
                         }
-                        // Navigator.pushNamed(context, '/pages/home_page.dart');
+                        Navigator.pushNamed(context, '/pages/registration.dart');
                       } catch (e) {
                         print(Text('Вы не зарегистрированы!'));
                       }
+                      
                     },
                     color: Colors.white,
                     buttonText: 'ВОЙТИ',
-                    // ! - при нажатии если поле пусток - уведомление
+                    // ! - при нажатии если поле пустоe - уведомление
                   ),
                   SizedBox(
                     height: 220,

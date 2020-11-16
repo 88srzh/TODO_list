@@ -8,6 +8,7 @@ import 'package:todo_list/pages/loginPage.dart';
 import 'package:todo_list/pages/home_page.dart';
 import 'package:todo_list/pages/registration.dart';
 import 'package:todo_list/services/authorization.dart';
+import 'package:todo_list/services/verify.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
         '/pages/registration.dart': (BuildContext context) => RegistrationPage(),
         '/pages/loginPage.dart': (BuildContext context) => LoginPage(),
         '/pages/home_page.dart': (BuildContext context) => HomePage(),
+        '/services/verify.dart': (BuildContext context) => VerifyService(),
       }
       ),
     );

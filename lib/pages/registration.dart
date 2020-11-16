@@ -120,7 +120,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       final newUser =
                           await _auth.createUserWithEmailAndPassword(
                               email: email, password: password);
-                      if (newUser != null && password == passwordRepeat) {
+                      if (newUser != null) {
                         showDialog(
                             context: context,
                             child: Padding(
@@ -154,7 +154,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     } catch (e) {
                       print(e);
                     }
-                    Navigator.pushNamed(context, '/pages/HomePage.dart');
+                    Navigator.pushNamed(context, '/services/verify.dart');
                   },
                   color: Colors.white,
                   buttonText: "Зарегистрироваться",
