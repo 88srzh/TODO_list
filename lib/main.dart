@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
         routes: <String, WidgetBuilder>{
         '/pages/registration.dart': (BuildContext context) => RegistrationPage(),
         '/pages/loginPage.dart': (BuildContext context) => LoginPage(),
-        '/pages/HomePage.dart': (BuildContext context) => HomePage(),
+        '/pages/home_page.dart': (BuildContext context) => HomePage(),
       }
       ),
     );

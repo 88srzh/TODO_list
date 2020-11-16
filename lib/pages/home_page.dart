@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:todo_list/pages/add_event_page.dart';
 import 'package:todo_list/pages/add_task_page.dart';
 import 'package:todo_list/pages/event_page.dart';
+import 'package:todo_list/pages/loginPage.dart';
 import 'package:todo_list/pages/task_page.dart';
 import 'package:todo_list/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
@@ -71,6 +72,7 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.exit_to_app_sharp),
               onPressed: () {
                 context.read<AuthentificationService>().signOut();
+                Navigator.pushNamed(context, '/pages/loginPage.dart');
               },
             )
           ],

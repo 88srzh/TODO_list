@@ -198,6 +198,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                   ),
                                 ),
                               ));
+                              Navigator.pushNamed(context, '/pages/home_page.dart');
                         } else if (email == null || password == null) {
                           showDialog(
                             context: context,
@@ -230,7 +231,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                             }
                           );
                         }
-                        Navigator.pushNamed(context, '/pages/HomePage.dart');
+                        // Navigator.pushNamed(context, '/pages/home_page.dart');
                       } catch (e) {
                         print(Text('Вы не зарегистрированы!'));
                       }

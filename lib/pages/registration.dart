@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:todo_list/pages/loginPage.dart';
 import 'package:lottie/lottie.dart';
 import 'package:todo_list/widgets/login_button.dart';
@@ -148,13 +149,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             ));
                       }
                       else {
-                        showDialog(
-                          context: null
-                          );
+                        Fluttertoast.showToast(msg: 'Что-то пошло не так');
                       }
                     } catch (e) {
                       print(e);
                     }
+                    Navigator.pushNamed(context, '/pages/HomePage.dart');
                   },
                   color: Colors.white,
                   buttonText: "Зарегистрироваться",
