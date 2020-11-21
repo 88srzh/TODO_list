@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:todo_list/pages/add_event_page.dart';
 import 'package:todo_list/pages/add_task_page.dart';
 import 'package:todo_list/pages/event_page.dart';
-import 'package:todo_list/pages/loginPage.dart';
 import 'package:todo_list/pages/task_page.dart';
 import 'package:todo_list/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   PageController _pageController = PageController();
+  String dropdownValue = 'One';
 
   double currentPage = 0;
 
@@ -64,9 +64,23 @@ class _HomePageState extends State<HomePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            IconButton(
+            DropdownButton<String>(
               icon: Icon(Icons.settings),
-              onPressed: () {},
+              value: dropdownValue,
+              iconSize: 24,
+              elevation: 16,
+              onChanged: (String newValue) {
+                setState(() {
+                  dropdownValue = newValue;
+                });
+              },
+              items: <String>['One', 'Two', 'Three']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
             ),
             IconButton(
               icon: Icon(Icons.exit_to_app_sharp),
