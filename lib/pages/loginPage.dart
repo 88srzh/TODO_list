@@ -222,7 +222,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                               textColor: Colors.white,
                               fontSize: 16.0);
                         }
-                        Navigator.pushNamed(context, '/pages/registration.dart');
                       } catch (e) {
                         print(Text('Вы не зарегистрированы!'));
                       }
